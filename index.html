@@ -1,0 +1,4467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHub - Developer Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS yang sama seperti sebelumnya... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+        }
+
+        :root {
+            --primary: #0a95ff;
+            --primary-light: #e1ecf4;
+            --primary-dark: #0074cc;
+            --secondary: #2e69b3;
+            --accent: #f48024;
+            --light: #ffffff;
+            --dark: #232629;
+            --gray-50: #f8f9f9;
+            --gray-100: #e3e6e8;
+            --gray-200: #d6d9dc;
+            --gray-300: #bbc0c4;
+            --gray-400: #9fa6ad;
+            --gray-500: #6a737c;
+            --gray-600: #535a60;
+            --gray-700: #3c4146;
+            --gray-800: #2d2f33;
+            --success: #2f9e44;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --border-radius: 4px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --light: #1a1a1a;
+            --dark: #ffffff;
+            --gray-50: #2d2d2d;
+            --gray-100: #3c3c3c;
+            --gray-200: #4a4a4a;
+            --gray-300: #5a5a5a;
+            --gray-400: #6a6a6a;
+            --gray-500: #8a8a8a;
+            --gray-600: #9a9a9a;
+            --gray-700: #aaaaaa;
+            --gray-800: #bababa;
+        }
+
+        body {
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.5;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1264px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--light);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+            margin-right: auto;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+        }
+
+        .desktop-nav {
+            display: flex;
+            margin-right: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .desktop-nav a {
+            display: block;
+            padding: 6px 12px;
+            color: var(--gray-600);
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .desktop-nav a:hover {
+            color: var(--gray-800);
+            background-color: var(--gray-100);
+        }
+
+        .desktop-nav a.active {
+            color: var(--light);
+            background-color: var(--gray-800);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 680px;
+            margin: 0 16px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                margin: 0 8px;
+            }
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px 40px 8px 10px;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            font-size: 13px;
+            transition: var(--transition);
+            background-color: var(--light);
+            color: var(--gray-800);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(10, 149, 255, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border: 1px solid transparent;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+
+        .btn-warning:hover {
+            background-color: #d4ac0d;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 6px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-info:hover {
+            background-color: var(--gray-100);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-size: 13px;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+            color: var(--gray-600);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: var(--danger);
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            font-size: 18px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .user-name {
+                display: none;
+            }
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            cursor: pointer;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 52px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--light);
+            z-index: 99;
+            overflow-y: auto;
+            padding: 16px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav li {
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav a:hover, .mobile-nav a.active {
+            background-color: var(--gray-50);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            display: flex;
+            gap: 24px;
+            padding: 24px 0;
+        }
+
+        @media (max-width: 980px) {
+            main {
+                flex-direction: column;
+            }
+        }
+
+        .sidebar {
+            width: 240px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 980px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .sidebar-section {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .sidebar-list {
+            list-style: none;
+        }
+
+        .sidebar-list li {
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .sidebar-list li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-list a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .sidebar-list a:hover {
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+        }
+
+        .sidebar-list a.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 500;
+            border-right: 3px solid var(--primary);
+        }
+
+        .sidebar-list .count {
+            margin-left: auto;
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Page Headers */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-size: 27px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        /* Post Styles */
+        .post {
+            display: flex;
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            position: relative;
+        }
+
+        .post:last-child {
+            border-bottom: none;
+        }
+
+        .post-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 60px;
+            flex-shrink: 0;
+            margin-right: 16px;
+        }
+
+        .post-votes {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .vote-count {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .vote-btn {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .vote-btn:hover {
+            color: var(--primary);
+        }
+
+        .post-answers {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 6px;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+        }
+
+        .post-answers.answered {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .post-answers-count {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .post-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .post-title {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .post-title a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .post-title a:hover {
+            color: var(--primary-dark);
+        }
+
+        .post-excerpt {
+            color: var(--gray-700);
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background-color: #d0e3f1;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .post-author-avatar {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+        }
+
+        /* Edit/Delete Actions */
+        .post-actions {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .post:hover .post-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-size: 12px;
+            padding: 4px;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background-color: var(--gray-100);
+        }
+
+        .action-btn.edit:hover {
+            color: var(--primary);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--danger);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            background-color: var(--light);
+            color: var(--gray-700);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pagination-btn:hover {
+            background-color: var(--gray-100);
+        }
+
+        .pagination-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Search Results */
+        .search-results {
+            margin-bottom: 16px;
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        /* Home Page */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 24px;
+            opacity: 0.9;
+        }
+
+        /* Profile Page */
+        .profile-header {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .profile-avatar {
+            width: 128px;
+            height: 128px;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+            border: 4px solid var(--light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-title {
+            color: var(--gray-600);
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .profile-bio {
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        @media (max-width: 480px) {
+            .profile-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .profile-stat-label {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        /* Messages Page */
+        .messages-container {
+            display: flex;
+            gap: 16px;
+            height: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .messages-container {
+                flex-direction: column;
+                height: auto;
+            }
+        }
+
+        .conversations {
+            width: 300px;
+            flex-shrink: 0;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            .conversations {
+                width: 100%;
+                max-height: 300px;
+            }
+        }
+
+        .conversations-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            font-weight: 600;
+        }
+
+        .conversations-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .conversation {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .conversation:hover, .conversation.active {
+            background-color: var(--gray-50);
+        }
+
+        .conversation-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+        }
+
+        .conversation-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conversation-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .conversation-preview {
+            color: var(--gray-600);
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-time {
+            font-size: 11px;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
+
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+        }
+
+        .chat-user {
+            font-weight: 600;
+        }
+
+        .chat-status {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            display: flex;
+            max-width: 70%;
+        }
+
+        .message.own {
+            align-self: flex-end;
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 18px;
+            background-color: var(--gray-100);
+            line-height: 1.4;
+        }
+
+        .message.own .message-bubble {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .message.own .message-time {
+            text-align: left;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 24px;
+            font-size: 14px;
+            transition: var(--transition);
+            background-color: var(--light);
+            color: var(--gray-800);
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(10, 149, 255, 0.2);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background-color: var(--light);
+            color: var(--gray-800);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(10, 149, 255, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Project Card Styles */
+        .project-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            height: 160px;
+            background-color: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        .project-content {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .project-author {
+            color: var(--gray-600);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .project-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .project-tool {
+            background-color: var(--gray-100);
+            color: var(--gray-700);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+            transition: var(--transition);
+            flex: 1;
+            justify-content: center;
+        }
+
+        .project-link:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .project-link.outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .project-link.outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Event Card Styles */
+        .event-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event-date {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .event-month {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .event-day {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .event-content {
+            padding: 16px;
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+            color: var(--gray-600);
+            font-size: 13px;
+        }
+
+        .event-meta i {
+            width: 16px;
+            text-align: center;
+            margin-right: 6px;
+        }
+
+        /* Job Card Styles */
+        .job-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .job-company {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        .job-type {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            color: var(--gray-600);
+            font-size: 13px;
+        }
+
+        .job-meta i {
+            width: 16px;
+            text-align: center;
+            margin-right: 6px;
+        }
+
+        .job-description {
+            color: var(--gray-700);
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .job-tag {
+            background-color: var(--gray-100);
+            color: var(--gray-700);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        /* Article Detail Styles */
+        .article-detail {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .article-header {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .article-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 16px;
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        .article-content {
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .article-content h2 {
+            font-size: 24px;
+            margin: 24px 0 16px;
+            color: var(--dark);
+        }
+
+        .article-content p {
+            margin-bottom: 16px;
+        }
+
+        .article-content code {
+            background-color: var(--gray-100);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .article-content pre {
+            background-color: var(--gray-100);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--gray-300);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1100px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 16px;
+        }
+
+        .footer-description {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Notification Panel */
+        .notification-panel {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 350px;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-panel.active {
+            display: flex;
+        }
+
+        .notification-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            font-weight: 600;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .notification-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notification-item:hover {
+            background-color: var(--gray-50);
+        }
+
+        .notification-item.unread {
+            background-color: var(--primary-light);
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .notification-message {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        .notification-time {
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        .notification-actions {
+            padding: 12px 16px;
+            border-top: 1px solid var(--gray-100);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code logo-icon"></i>
+                <span>DevHub</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="forum">Forum</a></li>
+                    <li><a href="#" class="nav-link" data-page="articles">Articles</a></li>
+                    <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
+                    <li><a href="#" class="nav-link" data-page="events">Events</a></li>
+                    <li><a href="#" class="nav-link" data-page="jobs">Jobs</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-bar">
+                <input type="text" id="globalSearch" placeholder="Search questions, articles, projects...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <a href="#" class="btn btn-outline">Ask Question</a>
+                
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User Avatar" class="avatar">
+                    <span class="user-name">Admin</span>
+                </div>
+                
+                <a href="#" class="icon-btn" id="inboxBtn">
+                    <i class="fas fa-inbox"></i>
+                    <span class="notification-badge">3</span>
+                </a>
+                
+                <a href="#" class="icon-btn">
+                    <i class="fas fa-trophy"></i>
+                </a>
+                
+                <a href="#" class="icon-btn" id="notificationsBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">5</span>
+                </a>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Notification Panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-header">
+                <span>Notifications</span>
+                <button class="btn btn-outline btn-sm" id="markAllRead">Mark all as read</button>
+            </div>
+            <div class="notification-list" id="notificationList">
+                <!-- Notifications will be loaded here -->
+            </div>
+            <div class="notification-actions">
+                <a href="#" class="btn btn-outline">View All</a>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" data-page="forum"><i class="fas fa-comments"></i> Forum</a></li>
+                <li><a href="#" data-page="articles"><i class="fas fa-newspaper"></i> Articles</a></li>
+                <li><a href="#" data-page="projects"><i class="fas fa-code-branch"></i> Projects</a></li>
+                <li><a href="#" data-page="events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                <li><a href="#" data-page="jobs"><i class="fas fa-briefcase"></i> Jobs</a></li>
+                <li><a href="#" data-page="profile"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="#" data-page="messages"><i class="fas fa-envelope"></i> Messages</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main>
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Navigation</div>
+                    <ul class="sidebar-list">
+                        <li><a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#" data-page="forum"><i class="fas fa-comments"></i> Forum <span class="count">1.2k</span></a></li>
+                        <li><a href="#" data-page="articles"><i class="fas fa-newspaper"></i> Articles <span class="count">342</span></a></li>
+                        <li><a href="#" data-page="projects"><i class="fas fa-code-branch"></i> Projects <span class="count">89</span></a></li>
+                        <li><a href="#" data-page="events"><i class="fas fa-calendar-alt"></i> Events <span class="count">24</span></a></li>
+                        <li><a href="#" data-page="jobs"><i class="fas fa-briefcase"></i> Jobs <span class="count">56</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Your Communities</div>
+                    <ul class="sidebar-list" id="communitiesList">
+                        <!-- Communities will be loaded here -->
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Popular Tags</div>
+                    <div class="card-body">
+                        <div class="post-tags" id="popularTags">
+                            <!-- Popular tags will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            
+            <div class="content">
+                <!-- Home Page -->
+                <section id="home" class="page active">
+                    <div class="hero">
+                        <h1>Welcome to DevHub</h1>
+                        <p>A community of developers helping each other to learn, grow, and solve coding challenges.</p>
+                        <a href="#" class="btn btn-primary">Join the Community</a>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">12.5k</div>
+                            <div class="stat-label">Developers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">3.7k</div>
+                            <div class="stat-label">Discussions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">892</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">56</div>
+                            <div class="stat-label">Jobs Posted</div>
+                        </div>
+                    </div>
+                    
+                    <div class="page-header">
+                        <h2 class="page-title">Top Questions</h2>
+                        <div class="page-actions">
+                            <a href="#" class="btn btn-outline" id="askQuestionBtn">Ask Question</a>
+                            <a href="#" class="btn btn-primary">Newest</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div id="questionsList">
+                            <!-- Questions will be loaded here from database -->
+                        </div>
+                        <div class="pagination" id="questionsPagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Forum Page -->
+                <section id="forum" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Developer Forum</h2>
+                        <div class="page-actions">
+                            <a href="#" class="btn btn-primary" id="askQuestionBtnForum">Ask Question</a>
+                        </div>
+                    </div>
+                    
+                    <div class="search-results" id="forumSearchResults" style="display: none;">
+                        <!-- Search results will be shown here -->
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">All Questions</h3>
+                            <div>
+                                <a href="#" class="btn btn-outline" id="sortNewest">Newest</a>
+                                <a href="#" class="btn btn-outline" id="sortActive">Active</a>
+                                <a href="#" class="btn btn-outline" id="sortUnanswered">Unanswered</a>
+                            </div>
+                        </div>
+                        
+                        <div id="questionsListForum">
+                            <!-- Questions will be loaded here from database -->
+                        </div>
+                        <div class="pagination" id="forumPagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ask Question Form -->
+                <section id="askQuestion" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Ask a Question</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="questionForm">
+                                <div class="form-group">
+                                    <label class="form-label" for="questionTitle">Title</label>
+                                    <input type="text" id="questionTitle" class="form-control" placeholder="What's your programming question? Be specific." required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="questionBody">Body</label>
+                                    <textarea id="questionBody" class="form-control" placeholder="Describe your problem in detail. Include any error messages, code snippets, or relevant information." required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="questionTags">Tags</label>
+                                    <input type="text" id="questionTags" class="form-control" placeholder="Add tags (e.g., javascript, react, node.js)">
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Post Your Question</button>
+                                    <button type="button" class="btn btn-outline" id="cancelQuestionBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Edit Question Form -->
+                <section id="editQuestion" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Edit Question</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="editQuestionForm">
+                                <input type="hidden" id="editQuestionId">
+                                <div class="form-group">
+                                    <label class="form-label" for="editQuestionTitle">Title</label>
+                                    <input type="text" id="editQuestionTitle" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editQuestionBody">Body</label>
+                                    <textarea id="editQuestionBody" class="form-control" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editQuestionTags">Tags</label>
+                                    <input type="text" id="editQuestionTags" class="form-control">
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Update Question</button>
+                                    <button type="button" class="btn btn-outline" id="cancelEditQuestionBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Articles Page -->
+                <section id="articles" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Tech Articles</h2>
+                        <div class="page-actions">
+                            <a href="#" class="btn btn-primary" id="writeArticleBtn">Write Article</a>
+                        </div>
+                    </div>
+                    
+                    <div id="articlesList">
+                        <!-- Articles will be loaded here from database -->
+                    </div>
+                    <div class="pagination" id="articlesPagination">
+                        <!-- Pagination will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Write Article Form -->
+                <section id="writeArticle" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Write Article</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="articleForm">
+                                <div class="form-group">
+                                    <label class="form-label" for="articleTitle">Title</label>
+                                    <input type="text" id="articleTitle" class="form-control" placeholder="Enter article title" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="articleSummary">Summary</label>
+                                    <textarea id="articleSummary" class="form-control" placeholder="Brief summary of your article" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="articleContent">Content</label>
+                                    <textarea id="articleContent" class="form-control" placeholder="Write your article content here..." rows="10" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="articleTags">Tags</label>
+                                    <input type="text" id="articleTags" class="form-control" placeholder="Add tags (e.g., javascript, react, node.js)">
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Publish Article</button>
+                                    <button type="button" class="btn btn-outline" id="cancelArticleBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Edit Article Form -->
+                <section id="editArticle" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Edit Article</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="editArticleForm">
+                                <input type="hidden" id="editArticleId">
+                                <div class="form-group">
+                                    <label class="form-label" for="editArticleTitle">Title</label>
+                                    <input type="text" id="editArticleTitle" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editArticleSummary">Summary</label>
+                                    <textarea id="editArticleSummary" class="form-control" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editArticleContent">Content</label>
+                                    <textarea id="editArticleContent" class="form-control" rows="10" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editArticleTags">Tags</label>
+                                    <input type="text" id="editArticleTags" class="form-control">
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Update Article</button>
+                                    <button type="button" class="btn btn-outline" id="cancelEditArticleBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Article Detail Page -->
+                <section id="articleDetail" class="page">
+                    <div class="article-detail" id="articleDetailContent">
+                        <!-- Article detail will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Projects Page -->
+                <section id="projects" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Project Showcase</h2>
+                        <div class="page-actions">
+                            <a href="#" class="btn btn-primary" id="addProjectBtn">Add Project</a>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-3" id="projectsList">
+                        <!-- Projects will be loaded here from database -->
+                    </div>
+                    <div class="pagination" id="projectsPagination">
+                        <!-- Pagination will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Add Project Form -->
+                <section id="addProject" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Add Project</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="projectForm">
+                                <div class="form-group">
+                                    <label class="form-label" for="projectTitle">Project Title</label>
+                                    <input type="text" id="projectTitle" class="form-control" placeholder="Enter project title" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="projectDescription">Description</label>
+                                    <textarea id="projectDescription" class="form-control" placeholder="Describe your project" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="projectTools">Tools & Technologies</label>
+                                    <input type="text" id="projectTools" class="form-control" placeholder="e.g., React, Node.js, MongoDB">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="projectWebsite">Website URL</label>
+                                    <input type="url" id="projectWebsite" class="form-control" placeholder="https://example.com">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="projectDemo">Demo URL</label>
+                                    <input type="url" id="projectDemo" class="form-control" placeholder="https://demo.example.com">
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Add Project</button>
+                                    <button type="button" class="btn btn-outline" id="cancelProjectBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Edit Project Form -->
+                <section id="editProject" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Edit Project</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="editProjectForm">
+                                <input type="hidden" id="editProjectId">
+                                <div class="form-group">
+                                    <label class="form-label" for="editProjectTitle">Project Title</label>
+                                    <input type="text" id="editProjectTitle" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editProjectDescription">Description</label>
+                                    <textarea id="editProjectDescription" class="form-control" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editProjectTools">Tools & Technologies</label>
+                                    <input type="text" id="editProjectTools" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editProjectWebsite">Website URL</label>
+                                    <input type="url" id="editProjectWebsite" class="form-control">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editProjectDemo">Demo URL</label>
+                                    <input type="url" id="editProjectDemo" class="form-control">
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Update Project</button>
+                                    <button type="button" class="btn btn-outline" id="cancelEditProjectBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Events Page -->
+                <section id="events" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Tech Events</h2>
+                        <div class="page-actions">
+                            <a href="#" class="btn btn-primary" id="addEventBtn">Add Event</a>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2" id="eventsList">
+                        <!-- Events will be loaded here from database -->
+                    </div>
+                    <div class="pagination" id="eventsPagination">
+                        <!-- Pagination will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Add Event Form -->
+                <section id="addEvent" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Add Event</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="eventForm">
+                                <div class="form-group">
+                                    <label class="form-label" for="eventTitle">Event Title</label>
+                                    <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="eventDescription">Description</label>
+                                    <textarea id="eventDescription" class="form-control" placeholder="Describe the event" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="eventDate">Date</label>
+                                    <input type="date" id="eventDate" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="eventLocation">Location</label>
+                                    <input type="text" id="eventLocation" class="form-control" placeholder="e.g., San Francisco, CA or Online" required>
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Add Event</button>
+                                    <button type="button" class="btn btn-outline" id="cancelEventBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Edit Event Form -->
+                <section id="editEvent" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Edit Event</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="editEventForm">
+                                <input type="hidden" id="editEventId">
+                                <div class="form-group">
+                                    <label class="form-label" for="editEventTitle">Event Title</label>
+                                    <input type="text" id="editEventTitle" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editEventDescription">Description</label>
+                                    <textarea id="editEventDescription" class="form-control" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editEventDate">Date</label>
+                                    <input type="date" id="editEventDate" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="editEventLocation">Location</label>
+                                    <input type="text" id="editEventLocation" class="form-control" required>
+                                </div>
+                                
+                                <div class="page-actions">
+                                    <button type="submit" class="btn btn-primary">Update Event</button>
+                                    <button type="button" class="btn btn-outline" id="cancelEditEventBtn">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Jobs Page -->
+                <section id="jobs" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Job Board</h2>
+                    </div>
+                    
+                    <div id="jobsList">
+                        <!-- Jobs will be loaded here from database -->
+                    </div>
+                    <div class="pagination" id="jobsPagination">
+                        <!-- Pagination will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Profile Page -->
+                <section id="profile" class="page">
+                    <div class="profile-header">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face" alt="User Avatar" class="profile-avatar">
+                        <div class="profile-info">
+                            <h1 class="profile-name">Admin Developer</h1>
+                            <div class="profile-title">Full-stack Developer & Community Admin</div>
+                            <p class="profile-bio">Full-stack developer who loves learning new technologies. Specialized in React, Node.js, TypeScript, and Python. Passionate about open source and developer communities.</p>
+                            <div class="profile-stats">
+                                <div class="profile-stat">
+                                    <div class="profile-stat-number">42</div>
+                                    <div class="profile-stat-label">Posts</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <div class="profile-stat-number">128</div>
+                                    <div class="profile-stat-label">Comments</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <div class="profile-stat-number">7</div>
+                                    <div class="profile-stat-label">Projects</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <div class="profile-stat-number">1.2k</div>
+                                    <div class="profile-stat-label">Reputation</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">About Me</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>I'm a passionate full-stack developer with 5 years of experience building web applications. I enjoy working with modern technologies and am always looking to learn new skills.</p>
+                                <p>Currently working as a community admin, helping developers connect and grow together.</p>
+                                
+                                <h4>Skills & Technologies</h4>
+                                <div class="post-tags">
+                                    <span class="tag">React</span>
+                                    <span class="tag">Node.js</span>
+                                    <span class="tag">TypeScript</span>
+                                    <span class="tag">Python</span>
+                                    <span class="tag">MongoDB</span>
+                                    <span class="tag">AWS</span>
+                                    <span class="tag">Docker</span>
+                                    <span class="tag">Git</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Recent Activity</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="post">
+                                    <div class="post-content">
+                                        <h3 class="post-title"><a href="#">Commented on "React Performance Optimization"</a></h3>
+                                        <p class="post-excerpt">Great article! I've found that using React.memo with custom comparison functions can significantly reduce unnecessary re-renders.</p>
+                                        <div class="post-meta">
+                                            <span>2 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="post">
+                                    <div class="post-content">
+                                        <h3 class="post-title"><a href="#">Posted "State Management in Vue"</a></h3>
+                                        <p class="post-excerpt">A comprehensive comparison of state management solutions in Vue.js applications.</p>
+                                        <div class="post-meta">
+                                            <span>1 day ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="post">
+                                    <div class="post-content">
+                                        <h3 class="post-title"><a href="#">Joined "Web Performance Workshop"</a></h3>
+                                        <p class="post-excerpt">Registered for the upcoming online workshop on advanced web performance techniques.</p>
+                                        <div class="post-meta">
+                                            <span>3 days ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Messages Page -->
+                <section id="messages" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Messages</h2>
+                    </div>
+                    
+                    <div class="messages-container">
+                        <div class="conversations">
+                            <div class="conversations-header">Conversations</div>
+                            <div class="conversations-list" id="conversationsList">
+                                <!-- Conversations will be loaded here from database -->
+                            </div>
+                        </div>
+                        
+                        <div class="chat">
+                            <div class="chat-header">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" alt="User" class="chat-avatar">
+                                <div>
+                                    <div class="chat-user" id="chatUserName">John Developer</div>
+                                    <div class="chat-status">Online</div>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-messages" id="chatMessages">
+                                <!-- Messages will be loaded here from database -->
+                            </div>
+                            
+                            <div class="chat-input">
+                                <input type="text" id="messageInput" placeholder="Type a message...">
+                                <button class="btn btn-primary" id="sendMessageBtn">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-code"></i>
+                        <span>DevHub</span>
+                    </a>
+                    <p class="footer-description">A community of developers helping each other to learn, grow, and solve coding challenges.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Products</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Teams</a></li>
+                        <li><a href="#">Advertising</a></li>
+                        <li><a href="#">Collectives</a></li>
+                        <li><a href="#">Talent</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Work Here</a></li>
+                        <li><a href="#">Legal</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Discussions</a></li>
+                        <li><a href="#">Articles</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Jobs</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 DevHub. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Database simulation using localStorage
+        const Database = {
+            // Initialize database with sample data
+            init: function() {
+                // Check if data already exists
+                if (!localStorage.getItem('devhub_questions')) {
+                    // Initialize with sample questions
+                    const sampleQuestions = [
+                        {
+                            id: 1,
+                            title: "Best practices for React performance optimization in 2023?",
+                            body: "I've been working on a large React application and noticed some performance issues. What are the most effective strategies for optimizing React performance with the latest React features?",
+                            tags: ["react", "performance", "javascript"],
+                            author: "John Developer",
+                            votes: 24,
+                            answers: 3,
+                            views: 128,
+                            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            title: "Transitioning from REST to GraphQL: challenges and benefits?",
+                            body: "Our team is considering moving from REST to GraphQL. For those who have made this transition, what were the biggest challenges and benefits you experienced?",
+                            tags: ["graphql", "api", "backend"],
+                            author: "Sarah Coder",
+                            votes: 18,
+                            answers: 1,
+                            views: 95,
+                            timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            title: "How to handle authentication in microservices architecture?",
+                            body: "I'm designing a microservices architecture and need advice on the best practices for handling authentication across multiple services.",
+                            tags: ["microservices", "authentication", "security"],
+                            author: "Admin",
+                            votes: 12,
+                            answers: 0,
+                            views: 67,
+                            timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 4,
+                            title: "CSS Grid vs Flexbox: When to use which?",
+                            body: "I'm confused about when to use CSS Grid and when to use Flexbox. Can someone explain the key differences and use cases?",
+                            tags: ["css", "grid", "flexbox", "layout"],
+                            author: "DesignDev",
+                            votes: 31,
+                            answers: 2,
+                            views: 154,
+                            timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 5,
+                            title: "Best state management solution for Vue 3?",
+                            body: "With Vue 3's Composition API, what are the recommended state management solutions for medium to large applications?",
+                            tags: ["vue", "state-management", "composition-api"],
+                            author: "VueFan",
+                            votes: 15,
+                            answers: 1,
+                            views: 89,
+                            timestamp: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_questions', JSON.stringify(sampleQuestions));
+                }
+                
+                if (!localStorage.getItem('devhub_articles')) {
+                    // Initialize with sample articles
+                    const sampleArticles = [
+                        {
+                            id: 1,
+                            title: "Understanding React Hooks: A Complete Guide",
+                            summary: "Learn how to use React Hooks effectively to simplify your components and manage state without classes.",
+                            content: `
+                                <h2>Introduction to React Hooks</h2>
+                                <p>React Hooks are functions that let you use state and other React features without writing a class. They were introduced in React 16.8 and have become the standard way to write React components.</p>
+                                
+                                <h2>Basic Hooks</h2>
+                                <p>There are several built-in hooks in React:</p>
+                                <ul>
+                                    <li><strong>useState</strong>: Allows you to add state to functional components</li>
+                                    <li><strong>useEffect</strong>: Lets you perform side effects in function components</li>
+                                    <li><strong>useContext</strong>: Accepts a context object and returns the current context value</li>
+                                </ul>
+                                
+                                <h2>Example: useState Hook</h2>
+                                <pre><code>import React, { useState } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}</code></pre>
+                                
+                                <h2>Conclusion</h2>
+                                <p>React Hooks provide a more direct API to the React concepts you already know: props, state, context, refs, and lifecycle. They don't replace your knowledge of React concepts, but rather provide a more direct way to use them.</p>
+                            `,
+                            tags: ["react", "javascript", "hooks"],
+                            author: "John Developer",
+                            timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            title: "CSS Grid vs Flexbox: When to Use What",
+                            summary: "A practical guide to choosing between CSS Grid and Flexbox for different layout scenarios.",
+                            content: `
+                                <h2>Understanding CSS Grid and Flexbox</h2>
+                                <p>CSS Grid and Flexbox are both powerful layout systems in CSS, but they serve different purposes and work best in different scenarios.</p>
+                                
+                                <h2>When to Use Flexbox</h2>
+                                <p>Flexbox is designed for one-dimensional layouts - either a row or a column. Use Flexbox when:</p>
+                                <ul>
+                                    <li>You need to align items in a single direction</li>
+                                    <li>You want to distribute space between items in a container</li>
+                                    <li>You need to control the sizing of items in one dimension</li>
+                                </ul>
+                                
+                                <h2>When to Use CSS Grid</h2>
+                                <p>CSS Grid is designed for two-dimensional layouts - both rows and columns. Use CSS Grid when:</p>
+                                <ul>
+                                    <li>You need complex layouts with both rows and columns</li>
+                                    <li>You want to precisely control the placement of items in a grid</li>
+                                    <li>You need to create responsive layouts without media queries</li>
+                                </ul>
+                                
+                                <h2>Conclusion</h2>
+                                <p>Both Flexbox and CSS Grid are valuable tools in your CSS toolkit. Use Flexbox for components and one-dimensional layouts, and CSS Grid for larger-scale page layouts. Often, they work best when used together!</p>
+                            `,
+                            tags: ["css", "web-design", "layout"],
+                            author: "Sarah Coder",
+                            timestamp: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            title: "TypeScript for JavaScript Developers",
+                            summary: "A comprehensive introduction to TypeScript for developers familiar with JavaScript.",
+                            content: `
+                                <h2>What is TypeScript?</h2>
+                                <p>TypeScript is a superset of JavaScript that adds static typing to the language. It helps catch errors during development and makes code more maintainable.</p>
+                                
+                                <h2>Key Features</h2>
+                                <ul>
+                                    <li><strong>Static Typing</strong>: Catch errors at compile time</li>
+                                    <li><strong>Better IDE Support</strong>: Improved autocomplete and refactoring</li>
+                                    <li><strong>Modern JavaScript Features</strong>: Support for latest ECMAScript features</li>
+                                </ul>
+                                
+                                <h2>Getting Started</h2>
+                                <pre><code>// Install TypeScript
+npm install -g typescript
+
+// Create a tsconfig.json
+tsc --init
+
+// Compile TypeScript to JavaScript
+tsc</code></pre>
+                                
+                                <h2>Conclusion</h2>
+                                <p>TypeScript brings type safety to JavaScript development, making it easier to build and maintain large-scale applications.</p>
+                            `,
+                            tags: ["typescript", "javascript", "web-development"],
+                            author: "Admin",
+                            timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_articles', JSON.stringify(sampleArticles));
+                }
+                
+                if (!localStorage.getItem('devhub_projects')) {
+                    // Initialize with sample projects
+                    const sampleProjects = [
+                        {
+                            id: 1,
+                            title: "Open Source E-commerce Platform",
+                            description: "A fully-featured e-commerce solution built with React, Node.js, and MongoDB.",
+                            tools: ["React", "Node.js", "MongoDB", "Express"],
+                            website: "https://example-ecommerce.com",
+                            demo: "https://demo.example-ecommerce.com",
+                            author: "John Developer",
+                            timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            title: "DevTools Browser Extension",
+                            description: "A browser extension that adds useful tools for web developers directly in the devtools panel.",
+                            tools: ["JavaScript", "Chrome API", "HTML", "CSS"],
+                            website: "https://devtools-extension.com",
+                            demo: "https://demo.devtools-extension.com",
+                            author: "Sarah Coder",
+                            timestamp: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            title: "Task Management App",
+                            description: "A collaborative task management application with real-time updates.",
+                            tools: ["Vue.js", "Firebase", "SCSS", "PWA"],
+                            website: "https://taskapp.example.com",
+                            demo: "https://demo.taskapp.example.com",
+                            author: "Admin",
+                            timestamp: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_projects', JSON.stringify(sampleProjects));
+                }
+                
+                if (!localStorage.getItem('devhub_events')) {
+                    // Initialize with sample events
+                    const sampleEvents = [
+                        {
+                            id: 1,
+                            title: "React Conference 2023",
+                            description: "Join us for the largest React conference of the year featuring talks from core team members and industry experts.",
+                            date: "2023-10-15",
+                            location: "San Francisco, CA",
+                            timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            title: "Web Performance Workshop",
+                            description: "Learn advanced techniques for optimizing web performance from industry leaders.",
+                            date: "2023-11-05",
+                            location: "Online",
+                            timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            title: "TypeScript Meetup",
+                            description: "Monthly meetup for TypeScript enthusiasts to share knowledge and best practices.",
+                            date: "2023-09-20",
+                            location: "New York, NY",
+                            timestamp: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_events', JSON.stringify(sampleEvents));
+                }
+                
+                if (!localStorage.getItem('devhub_jobs')) {
+                    // Initialize with sample jobs
+                    const sampleJobs = [
+                        {
+                            id: 1,
+                            title: "Senior React Developer",
+                            company: "TechCorp Inc.",
+                            type: "Full-time",
+                            location: "Remote / San Francisco, CA",
+                            description: "We're looking for an experienced React developer to join our frontend team. You'll work on building user interfaces for our SaaS platform.",
+                            tags: ["React", "TypeScript", "Frontend"],
+                            timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            title: "Full Stack JavaScript Engineer",
+                            company: "StartupXYZ",
+                            type: "Full-time",
+                            location: "New York, NY",
+                            description: "Join our small but growing team as a full stack developer. You'll work on both frontend and backend using modern JavaScript technologies.",
+                            tags: ["Node.js", "React", "MongoDB"],
+                            timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            title: "DevOps Engineer",
+                            company: "CloudTech Solutions",
+                            type: "Full-time",
+                            location: "Remote",
+                            description: "Looking for a DevOps engineer to help scale our infrastructure and improve deployment processes.",
+                            tags: ["AWS", "Docker", "Kubernetes", "CI/CD"],
+                            timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_jobs', JSON.stringify(sampleJobs));
+                }
+                
+                if (!localStorage.getItem('devhub_conversations')) {
+                    // Initialize with sample conversations
+                    const sampleConversations = [
+                        {
+                            id: 1,
+                            name: "John Developer",
+                            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
+                            messages: [
+                                {
+                                    text: "Hey, thanks for your help with the React performance issue I was having!",
+                                    sender: "John Developer",
+                                    timestamp: new Date(Date.now() - 36 * 60 * 1000).toISOString()
+                                },
+                                {
+                                    text: "No problem! Happy to help. Did the memoization technique work for your use case?",
+                                    sender: "You",
+                                    timestamp: new Date(Date.now() - 34 * 60 * 1000).toISOString()
+                                },
+                                {
+                                    text: "Yes, it made a huge difference! The component re-renders dropped by about 70%.",
+                                    sender: "John Developer",
+                                    timestamp: new Date(Date.now() - 32 * 60 * 1000).toISOString()
+                                },
+                                {
+                                    text: "That's great to hear! Performance optimization in React can be tricky but rewarding. Let me know if you need help with anything else.",
+                                    sender: "You",
+                                    timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString()
+                                }
+                            ],
+                            lastMessage: "That's great to hear! Performance optimization in React can be tricky but rewarding. Let me know if you need help with anything else.",
+                            timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_conversations', JSON.stringify(sampleConversations));
+                }
+
+                if (!localStorage.getItem('devhub_communities')) {
+                    // Initialize with sample communities
+                    const sampleCommunities = [
+                        { id: 1, name: "React Developers", icon: "fab fa-react", members: 1250 },
+                        { id: 2, name: "Node.js Community", icon: "fab fa-node-js", members: 890 },
+                        { id: 3, name: "Python Users", icon: "fab fa-python", members: 745 },
+                        { id: 4, name: "Database Experts", icon: "fas fa-database", members: 420 },
+                        { id: 5, name: "Mobile Developers", icon: "fas fa-mobile-alt", members: 680 },
+                        { id: 6, name: "DevOps Engineers", icon: "fas fa-server", members: 530 },
+                        { id: 7, name: "UI/UX Designers", icon: "fas fa-palette", members: 310 },
+                        { id: 8, name: "Cloud Computing", icon: "fas fa-cloud", members: 620 }
+                    ];
+                    localStorage.setItem('devhub_communities', JSON.stringify(sampleCommunities));
+                }
+
+                if (!localStorage.getItem('devhub_notifications')) {
+                    // Initialize with sample notifications
+                    const sampleNotifications = [
+                        {
+                            id: 1,
+                            title: "New reply to your question",
+                            message: "John Developer replied to your question about React performance",
+                            type: "reply",
+                            read: false,
+                            timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            title: "Article published",
+                            message: "Your article 'Understanding React Hooks' has been published",
+                            type: "article",
+                            read: false,
+                            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            title: "New follower",
+                            message: "Sarah Coder started following you",
+                            type: "follow",
+                            read: false,
+                            timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 4,
+                            title: "Event reminder",
+                            message: "React Conference 2023 starts in 3 days",
+                            type: "event",
+                            read: true,
+                            timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 5,
+                            title: "Project liked",
+                            message: "Your project 'Open Source E-commerce' received 5 new likes",
+                            type: "like",
+                            read: true,
+                            timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_notifications', JSON.stringify(sampleNotifications));
+                }
+
+                if (!localStorage.getItem('devhub_settings')) {
+                    // Initialize settings
+                    const settings = {
+                        theme: 'light',
+                        notifications: true,
+                        itemsPerPage: 5
+                    };
+                    localStorage.setItem('devhub_settings', JSON.stringify(settings));
+                }
+            },
+            
+            // Get all questions
+            getQuestions: function() {
+                return JSON.parse(localStorage.getItem('devhub_questions') || '[]');
+            },
+            
+            // Add a new question
+            addQuestion: function(question) {
+                const questions = this.getQuestions();
+                question.id = questions.length > 0 ? Math.max(...questions.map(q => q.id)) + 1 : 1;
+                question.votes = 0;
+                question.answers = 0;
+                question.views = 0;
+                question.timestamp = new Date().toISOString();
+                questions.push(question);
+                localStorage.setItem('devhub_questions', JSON.stringify(questions));
+                return question;
+            },
+
+            // Update question
+            updateQuestion: function(questionId, updatedQuestion) {
+                const questions = this.getQuestions();
+                const index = questions.findIndex(q => q.id === questionId);
+                if (index !== -1) {
+                    questions[index] = { ...questions[index], ...updatedQuestion };
+                    localStorage.setItem('devhub_questions', JSON.stringify(questions));
+                    return true;
+                }
+                return false;
+            },
+
+            // Delete question
+            deleteQuestion: function(questionId) {
+                const questions = this.getQuestions();
+                const filteredQuestions = questions.filter(q => q.id !== questionId);
+                localStorage.setItem('devhub_questions', JSON.stringify(filteredQuestions));
+                return true;
+            },
+            
+            // Update question vote
+            updateQuestionVote: function(questionId, change) {
+                const questions = this.getQuestions();
+                const question = questions.find(q => q.id === questionId);
+                if (question) {
+                    question.votes += change;
+                    localStorage.setItem('devhub_questions', JSON.stringify(questions));
+                }
+            },
+            
+            // Get all articles
+            getArticles: function() {
+                return JSON.parse(localStorage.getItem('devhub_articles') || '[]');
+            },
+            
+            // Add a new article
+            addArticle: function(article) {
+                const articles = this.getArticles();
+                article.id = articles.length > 0 ? Math.max(...articles.map(a => a.id)) + 1 : 1;
+                article.timestamp = new Date().toISOString();
+                articles.push(article);
+                localStorage.setItem('devhub_articles', JSON.stringify(articles));
+                return article;
+            },
+
+            // Update article
+            updateArticle: function(articleId, updatedArticle) {
+                const articles = this.getArticles();
+                const index = articles.findIndex(a => a.id === articleId);
+                if (index !== -1) {
+                    articles[index] = { ...articles[index], ...updatedArticle };
+                    localStorage.setItem('devhub_articles', JSON.stringify(articles));
+                    return true;
+                }
+                return false;
+            },
+
+            // Delete article
+            deleteArticle: function(articleId) {
+                const articles = this.getArticles();
+                const filteredArticles = articles.filter(a => a.id !== articleId);
+                localStorage.setItem('devhub_articles', JSON.stringify(filteredArticles));
+                return true;
+            },
+            
+            // Get article by ID
+            getArticle: function(id) {
+                const articles = this.getArticles();
+                return articles.find(a => a.id === id);
+            },
+            
+            // Get all projects
+            getProjects: function() {
+                return JSON.parse(localStorage.getItem('devhub_projects') || '[]');
+            },
+            
+            // Add a new project
+            addProject: function(project) {
+                const projects = this.getProjects();
+                project.id = projects.length > 0 ? Math.max(...projects.map(p => p.id)) + 1 : 1;
+                project.timestamp = new Date().toISOString();
+                projects.push(project);
+                localStorage.setItem('devhub_projects', JSON.stringify(projects));
+                return project;
+            },
+
+            // Update project
+            updateProject: function(projectId, updatedProject) {
+                const projects = this.getProjects();
+                const index = projects.findIndex(p => p.id === projectId);
+                if (index !== -1) {
+                    projects[index] = { ...projects[index], ...updatedProject };
+                    localStorage.setItem('devhub_projects', JSON.stringify(projects));
+                    return true;
+                }
+                return false;
+            },
+
+            // Delete project
+            deleteProject: function(projectId) {
+                const projects = this.getProjects();
+                const filteredProjects = projects.filter(p => p.id !== projectId);
+                localStorage.setItem('devhub_projects', JSON.stringify(filteredProjects));
+                return true;
+            },
+            
+            // Get all events
+            getEvents: function() {
+                return JSON.parse(localStorage.getItem('devhub_events') || '[]');
+            },
+            
+            // Add a new event
+            addEvent: function(event) {
+                const events = this.getEvents();
+                event.id = events.length > 0 ? Math.max(...events.map(e => e.id)) + 1 : 1;
+                event.timestamp = new Date().toISOString();
+                events.push(event);
+                localStorage.setItem('devhub_events', JSON.stringify(events));
+                return event;
+            },
+
+            // Update event
+            updateEvent: function(eventId, updatedEvent) {
+                const events = this.getEvents();
+                const index = events.findIndex(e => e.id === eventId);
+                if (index !== -1) {
+                    events[index] = { ...events[index], ...updatedEvent };
+                    localStorage.setItem('devhub_events', JSON.stringify(events));
+                    return true;
+                }
+                return false;
+            },
+
+            // Delete event
+            deleteEvent: function(eventId) {
+                const events = this.getEvents();
+                const filteredEvents = events.filter(e => e.id !== eventId);
+                localStorage.setItem('devhub_events', JSON.stringify(filteredEvents));
+                return true;
+            },
+            
+            // Get all jobs
+            getJobs: function() {
+                return JSON.parse(localStorage.getItem('devhub_jobs') || '[]');
+            },
+            
+            // Get all conversations
+            getConversations: function() {
+                return JSON.parse(localStorage.getItem('devhub_conversations') || '[]');
+            },
+            
+            // Add a message to a conversation
+            addMessage: function(conversationId, message) {
+                const conversations = this.getConversations();
+                const conversation = conversations.find(c => c.id === conversationId);
+                if (conversation) {
+                    message.timestamp = new Date().toISOString();
+                    conversation.messages.push(message);
+                    conversation.lastMessage = message.text;
+                    conversation.timestamp = message.timestamp;
+                    localStorage.setItem('devhub_conversations', JSON.stringify(conversations));
+                }
+            },
+
+            // Get all communities
+            getCommunities: function() {
+                return JSON.parse(localStorage.getItem('devhub_communities') || '[]');
+            },
+
+            // Get all notifications
+            getNotifications: function() {
+                return JSON.parse(localStorage.getItem('devhub_notifications') || '[]');
+            },
+
+            // Mark notification as read
+            markNotificationAsRead: function(notificationId) {
+                const notifications = this.getNotifications();
+                const notification = notifications.find(n => n.id === notificationId);
+                if (notification) {
+                    notification.read = true;
+                    localStorage.setItem('devhub_notifications', JSON.stringify(notifications));
+                }
+            },
+
+            // Mark all notifications as read
+            markAllNotificationsAsRead: function() {
+                const notifications = this.getNotifications();
+                notifications.forEach(notification => {
+                    notification.read = true;
+                });
+                localStorage.setItem('devhub_notifications', JSON.stringify(notifications));
+            },
+
+            // Get unread notification count
+            getUnreadNotificationCount: function() {
+                const notifications = this.getNotifications();
+                return notifications.filter(n => !n.read).length;
+            },
+
+            // Get settings
+            getSettings: function() {
+                return JSON.parse(localStorage.getItem('devhub_settings') || '{}');
+            },
+
+            // Update settings
+            updateSettings: function(newSettings) {
+                const currentSettings = this.getSettings();
+                const updatedSettings = { ...currentSettings, ...newSettings };
+                localStorage.setItem('devhub_settings', JSON.stringify(updatedSettings));
+                return updatedSettings;
+            },
+
+            // Search across all content
+            search: function(query) {
+                const results = {
+                    questions: [],
+                    articles: [],
+                    projects: [],
+                    events: [],
+                    jobs: []
+                };
+
+                if (!query) return results;
+
+                const searchTerm = query.toLowerCase();
+
+                // Search questions
+                const questions = this.getQuestions();
+                results.questions = questions.filter(q => 
+                    q.title.toLowerCase().includes(searchTerm) || 
+                    q.body.toLowerCase().includes(searchTerm) ||
+                    q.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+
+                // Search articles
+                const articles = this.getArticles();
+                results.articles = articles.filter(a => 
+                    a.title.toLowerCase().includes(searchTerm) || 
+                    a.summary.toLowerCase().includes(searchTerm) ||
+                    a.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+
+                // Search projects
+                const projects = this.getProjects();
+                results.projects = projects.filter(p => 
+                    p.title.toLowerCase().includes(searchTerm) || 
+                    p.description.toLowerCase().includes(searchTerm) ||
+                    p.tools.some(tool => tool.toLowerCase().includes(searchTerm))
+                );
+
+                // Search events
+                const events = this.getEvents();
+                results.events = events.filter(e => 
+                    e.title.toLowerCase().includes(searchTerm) || 
+                    e.description.toLowerCase().includes(searchTerm) ||
+                    e.location.toLowerCase().includes(searchTerm)
+                );
+
+                // Search jobs
+                const jobs = this.getJobs();
+                results.jobs = jobs.filter(j => 
+                    j.title.toLowerCase().includes(searchTerm) || 
+                    j.company.toLowerCase().includes(searchTerm) ||
+                    j.description.toLowerCase().includes(searchTerm) ||
+                    j.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+
+                return results;
+            }
+        };
+
+        // Enhanced UI Controller
+        const UIController = {
+            currentPage: 1,
+            itemsPerPage: 5,
+            currentSort: 'newest',
+            searchQuery: '',
+
+            // Initialize the UI
+            init: function() {
+                // Initialize database
+                Database.init();
+                
+                // Load settings
+                this.loadSettings();
+                
+                // Set up event listeners
+                this.setupEventListeners();
+                
+                // Load initial data
+                this.loadQuestions();
+                this.loadArticles();
+                this.loadProjects();
+                this.loadEvents();
+                this.loadJobs();
+                this.loadConversations();
+                this.loadCommunities();
+                this.loadPopularTags();
+                this.loadNotifications();
+                
+                // Update notification badges
+                this.updateNotificationBadges();
+            },
+
+            // Load settings
+            loadSettings: function() {
+                const settings = Database.getSettings();
+                this.itemsPerPage = settings.itemsPerPage || 5;
+                
+                // Apply theme
+                if (settings.theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            },
+
+            // Save settings
+            saveSettings: function() {
+                const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+                Database.updateSettings({
+                    theme: theme,
+                    itemsPerPage: this.itemsPerPage
+                });
+            },
+            
+            // Set up all event listeners
+            setupEventListeners: function() {
+                // Navigation
+                const navLinks = document.querySelectorAll('.nav-link, .sidebar-list a, .mobile-nav a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetPage = e.target.getAttribute('data-page');
+                        this.showPage(targetPage);
+                        
+                        // Close mobile menu if open
+                        document.querySelector('.mobile-nav').classList.remove('active');
+                    });
+                });
+                
+                // Mobile menu toggle
+                document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+                    document.querySelector('.mobile-nav').classList.toggle('active');
+                });
+                
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+
+                // Global search
+                document.getElementById('globalSearch').addEventListener('input', (e) => {
+                    this.searchQuery = e.target.value;
+                    this.performSearch();
+                });
+
+                // Notification panel
+                document.getElementById('notificationsBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.toggleNotificationPanel();
+                });
+
+                document.getElementById('markAllRead').addEventListener('click', () => {
+                    Database.markAllNotificationsAsRead();
+                    this.loadNotifications();
+                    this.updateNotificationBadges();
+                });
+
+                // Close notification panel when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('#notificationsBtn') && !e.target.closest('#notificationPanel')) {
+                        document.getElementById('notificationPanel').classList.remove('active');
+                    }
+                });
+
+                // Ask question buttons
+                document.getElementById('askQuestionBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('askQuestion');
+                });
+                
+                document.getElementById('askQuestionBtnForum').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('askQuestion');
+                });
+                
+                // Cancel question button
+                document.getElementById('cancelQuestionBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('forum');
+                });
+
+                // Cancel edit question button
+                document.getElementById('cancelEditQuestionBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('forum');
+                });
+                
+                // Question form submission
+                document.getElementById('questionForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitQuestion();
+                });
+
+                // Edit question form submission
+                document.getElementById('editQuestionForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.updateQuestion();
+                });
+                
+                // Write article button
+                document.getElementById('writeArticleBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('writeArticle');
+                });
+                
+                // Cancel article button
+                document.getElementById('cancelArticleBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('articles');
+                });
+
+                // Cancel edit article button
+                document.getElementById('cancelEditArticleBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('articles');
+                });
+                
+                // Article form submission
+                document.getElementById('articleForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitArticle();
+                });
+
+                // Edit article form submission
+                document.getElementById('editArticleForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.updateArticle();
+                });
+                
+                // Add project button
+                document.getElementById('addProjectBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('addProject');
+                });
+                
+                // Cancel project button
+                document.getElementById('cancelProjectBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('projects');
+                });
+
+                // Cancel edit project button
+                document.getElementById('cancelEditProjectBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('projects');
+                });
+                
+                // Project form submission
+                document.getElementById('projectForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitProject();
+                });
+
+                // Edit project form submission
+                document.getElementById('editProjectForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.updateProject();
+                });
+                
+                // Add event button
+                document.getElementById('addEventBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('addEvent');
+                });
+                
+                // Cancel event button
+                document.getElementById('cancelEventBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('events');
+                });
+
+                // Cancel edit event button
+                document.getElementById('cancelEditEventBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('events');
+                });
+                
+                // Event form submission
+                document.getElementById('eventForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitEvent();
+                });
+
+                // Edit event form submission
+                document.getElementById('editEventForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.updateEvent();
+                });
+                
+                // Send message button
+                document.getElementById('sendMessageBtn').addEventListener('click', () => {
+                    this.sendMessage();
+                });
+                
+                // Message input enter key
+                document.getElementById('messageInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.sendMessage();
+                    }
+                });
+                
+                // Voting buttons
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('vote-btn') || e.target.closest('.vote-btn')) {
+                        const voteBtn = e.target.classList.contains('vote-btn') ? e.target : e.target.closest('.vote-btn');
+                        this.handleVote(voteBtn);
+                    }
+                });
+
+                // Edit/Delete buttons
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('edit-btn') || e.target.closest('.edit-btn')) {
+                        const btn = e.target.classList.contains('edit-btn') ? e.target : e.target.closest('.edit-btn');
+                        this.handleEdit(btn);
+                    }
+                    
+                    if (e.target.classList.contains('delete-btn') || e.target.closest('.delete-btn')) {
+                        const btn = e.target.classList.contains('delete-btn') ? e.target : e.target.closest('.delete-btn');
+                        this.handleDelete(btn);
+                    }
+                });
+
+                // Sort buttons
+                document.getElementById('sortNewest').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.currentSort = 'newest';
+                    this.loadQuestions();
+                });
+
+                document.getElementById('sortActive').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.currentSort = 'active';
+                    this.loadQuestions();
+                });
+
+                document.getElementById('sortUnanswered').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.currentSort = 'unanswered';
+                    this.loadQuestions();
+                });
+            },
+
+            // Toggle theme
+            toggleTheme: function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const themeToggle = document.getElementById('themeToggle');
+                
+                if (currentTheme === 'dark') {
+                    document.documentElement.removeAttribute('data-theme');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+                
+                this.saveSettings();
+            },
+
+            // Toggle notification panel
+            toggleNotificationPanel: function() {
+                const panel = document.getElementById('notificationPanel');
+                panel.classList.toggle('active');
+            },
+
+            // Update notification badges
+            updateNotificationBadges: function() {
+                const unreadCount = Database.getUnreadNotificationCount();
+                const badges = document.querySelectorAll('.notification-badge');
+                badges.forEach(badge => {
+                    if (unreadCount > 0) {
+                        badge.textContent = unreadCount;
+                        badge.style.display = 'flex';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                });
+            },
+            
+            // Show a specific page
+            showPage: function(pageId) {
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show the target page
+                document.getElementById(pageId).classList.add('active');
+                
+                // Update active nav links
+                document.querySelectorAll('.nav-link, .sidebar-list a, .mobile-nav a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Reset pagination for the new page
+                this.currentPage = 1;
+            },
+            
+            // Load and display questions with pagination
+            loadQuestions: function() {
+                let questions = Database.getQuestions();
+                
+                // Apply sorting
+                questions = this.sortQuestions(questions, this.currentSort);
+                
+                // Apply search filter if any
+                if (this.searchQuery) {
+                    questions = questions.filter(q => 
+                        q.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                        q.body.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        q.tags.some(tag => tag.toLowerCase().includes(this.searchQuery.toLowerCase()))
+                    );
+                }
+                
+                const totalItems = questions.length;
+                const totalPages = Math.ceil(totalItems / this.itemsPerPage);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const paginatedQuestions = questions.slice(startIndex, startIndex + this.itemsPerPage);
+                
+                const questionsList = document.getElementById('questionsList');
+                const questionsListForum = document.getElementById('questionsListForum');
+                
+                if (paginatedQuestions.length === 0) {
+                    const noResultsHTML = '<div class="card-body"><p>No questions found.</p></div>';
+                    questionsList.innerHTML = noResultsHTML;
+                    questionsListForum.innerHTML = noResultsHTML;
+                } else {
+                    const questionsHTML = paginatedQuestions.map(question => `
+                        <div class="post">
+                            <div class="post-actions">
+                                <button class="action-btn edit edit-btn" data-type="question" data-id="${question.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete delete-btn" data-type="question" data-id="${question.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="post-stats">
+                                <div class="post-votes">
+                                    <button class="vote-btn" data-id="${question.id}" data-direction="up"><i class="fas fa-caret-up"></i></button>
+                                    <div class="vote-count">${question.votes}</div>
+                                    <button class="vote-btn" data-id="${question.id}" data-direction="down"><i class="fas fa-caret-down"></i></button>
+                                </div>
+                                <div class="post-answers ${question.answers > 0 ? 'answered' : ''}">
+                                    <div class="post-answers-count">${question.answers}</div>
+                                    <div>answers</div>
+                                </div>
+                                <div class="post-views">
+                                    <i class="far fa-eye"></i> ${question.views}
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <h3 class="post-title"><a href="#">${question.title}</a></h3>
+                                <p class="post-excerpt">${question.body}</p>
+                                <div class="post-meta">
+                                    <div class="post-tags">
+                                        ${question.tags.map(tag => `<a href="#" class="tag">${tag}</a>`).join('')}
+                                    </div>
+                                    <div class="post-author">
+                                        <span>${question.author}</span>
+                                        <span>${this.formatTime(question.timestamp)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    questionsList.innerHTML = questionsHTML;
+                    questionsListForum.innerHTML = questionsHTML;
+                }
+                
+                // Update pagination
+                this.updatePagination('questionsPagination', totalPages);
+                this.updatePagination('forumPagination', totalPages);
+            },
+
+            // Sort questions
+            sortQuestions: function(questions, sortBy) {
+                switch (sortBy) {
+                    case 'newest':
+                        return questions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    case 'active':
+                        return questions.sort((a, b) => b.answers - a.answers || new Date(b.timestamp) - new Date(a.timestamp));
+                    case 'unanswered':
+                        return questions.filter(q => q.answers === 0).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    default:
+                        return questions;
+                }
+            },
+
+            // Update pagination
+            updatePagination: function(paginationId, totalPages) {
+                const pagination = document.getElementById(paginationId);
+                
+                if (totalPages <= 1) {
+                    pagination.innerHTML = '';
+                    return;
+                }
+                
+                let paginationHTML = '';
+                
+                // Previous button
+                paginationHTML += `<button class="pagination-btn ${this.currentPage === 1 ? 'disabled' : ''}" ${this.currentPage === 1 ? 'disabled' : ''} data-page="${this.currentPage - 1}">
+                    <i class="fas fa-chevron-left"></i>
+                </button>`;
+                
+                // Page numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= this.currentPage - 1 && i <= this.currentPage + 1)) {
+                        paginationHTML += `<button class="pagination-btn ${i === this.currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+                    } else if (i === this.currentPage - 2 || i === this.currentPage + 2) {
+                        paginationHTML += `<span class="pagination-dots">...</span>`;
+                    }
+                }
+                
+                // Next button
+                paginationHTML += `<button class="pagination-btn ${this.currentPage === totalPages ? 'disabled' : ''}" ${this.currentPage === totalPages ? 'disabled' : ''} data-page="${this.currentPage + 1}">
+                    <i class="fas fa-chevron-right"></i>
+                </button>`;
+                
+                pagination.innerHTML = paginationHTML;
+                
+                // Add event listeners to pagination buttons
+                pagination.querySelectorAll('.pagination-btn:not(.disabled)').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.currentPage = parseInt(btn.getAttribute('data-page'));
+                        this.loadQuestions();
+                    });
+                });
+            },
+            
+            // Load and display articles with pagination
+            loadArticles: function() {
+                let articles = Database.getArticles();
+                
+                // Apply search filter if any
+                if (this.searchQuery) {
+                    articles = articles.filter(a => 
+                        a.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                        a.summary.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        a.tags.some(tag => tag.toLowerCase().includes(this.searchQuery.toLowerCase()))
+                    );
+                }
+                
+                const totalItems = articles.length;
+                const totalPages = Math.ceil(totalItems / this.itemsPerPage);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const paginatedArticles = articles.slice(startIndex, startIndex + this.itemsPerPage);
+                
+                const articlesList = document.getElementById('articlesList');
+                
+                if (paginatedArticles.length === 0) {
+                    articlesList.innerHTML = '<div class="card-body"><p>No articles found.</p></div>';
+                } else {
+                    articlesList.innerHTML = paginatedArticles.map(article => `
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="post-actions">
+                                    <button class="action-btn edit edit-btn" data-type="article" data-id="${article.id}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-btn" data-type="article" data-id="${article.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <h3 class="card-title">${article.title}</h3>
+                                <p class="post-excerpt">${article.summary}</p>
+                                <div class="post-meta">
+                                    <div class="post-tags">
+                                        ${article.tags.map(tag => `<a href="#" class="tag">${tag}</a>`).join('')}
+                                    </div>
+                                    <div class="post-author">
+                                        <span>${article.author}</span>
+                                        <span>${this.formatTime(article.timestamp)}</span>
+                                    </div>
+                                </div>
+                                <div class="page-actions">
+                                    <button class="btn btn-primary read-article-btn" data-id="${article.id}">Read Article</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    // Add event listeners to read article buttons
+                    document.querySelectorAll('.read-article-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const articleId = parseInt(e.target.getAttribute('data-id'));
+                            this.showArticle(articleId);
+                        });
+                    });
+                }
+                
+                // Update pagination
+                this.updatePagination('articlesPagination', totalPages);
+            },
+            
+            // Show article detail
+            showArticle: function(articleId) {
+                const article = Database.getArticle(articleId);
+                if (!article) return;
+                
+                const articleDetail = document.getElementById('articleDetailContent');
+                articleDetail.innerHTML = `
+                    <div class="article-header">
+                        <div class="post-actions">
+                            <button class="action-btn edit edit-btn" data-type="article" data-id="${article.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete delete-btn" data-type="article" data-id="${article.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <h1 class="article-title">${article.title}</h1>
+                        <div class="article-meta">
+                            <span>By ${article.author}</span>
+                            <span>${this.formatTime(article.timestamp)}</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        ${article.content}
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-outline" id="backToArticlesBtn">Back to Articles</button>
+                    </div>
+                `;
+                
+                // Add event listener to back button
+                document.getElementById('backToArticlesBtn').addEventListener('click', () => {
+                    this.showPage('articles');
+                });
+
+                // Add event listeners to edit/delete buttons
+                this.attachEditDeleteListeners();
+                
+                this.showPage('articleDetail');
+            },
+            
+            // Load and display projects with pagination
+            loadProjects: function() {
+                let projects = Database.getProjects();
+                
+                // Apply search filter if any
+                if (this.searchQuery) {
+                    projects = projects.filter(p => 
+                        p.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                        p.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        p.tools.some(tool => tool.toLowerCase().includes(this.searchQuery.toLowerCase()))
+                    );
+                }
+                
+                const totalItems = projects.length;
+                const totalPages = Math.ceil(totalItems / this.itemsPerPage);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const paginatedProjects = projects.slice(startIndex, startIndex + this.itemsPerPage);
+                
+                const projectsList = document.getElementById('projectsList');
+                
+                if (paginatedProjects.length === 0) {
+                    projectsList.innerHTML = '<div class="card-body"><p>No projects found.</p></div>';
+                } else {
+                    projectsList.innerHTML = paginatedProjects.map(project => `
+                        <div class="project-card">
+                            <div class="post-actions">
+                                <button class="action-btn edit edit-btn" data-type="project" data-id="${project.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete delete-btn" data-type="project" data-id="${project.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="project-image">
+                                <i class="fas fa-code fa-3x"></i>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">${project.title}</h3>
+                                <div class="project-author">By ${project.author}</div>
+                                <p class="post-excerpt">${project.description}</p>
+                                <div class="project-tools">
+                                    ${project.tools.map(tool => `<span class="project-tool">${tool}</span>`).join('')}
+                                </div>
+                                <div class="project-links">
+                                    ${project.website ? `<a href="${project.website}" class="project-link outline" target="_blank"><i class="fas fa-globe"></i> Website</a>` : ''}
+                                    ${project.demo ? `<a href="${project.demo}" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> View Demo</a>` : ''}
+                                    <a href="#" class="project-link"><i class="fas fa-arrow-right"></i> View Project</a>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                
+                // Update pagination
+                this.updatePagination('projectsPagination', totalPages);
+            },
+            
+            // Load and display events with pagination
+            loadEvents: function() {
+                let events = Database.getEvents();
+                
+                // Apply search filter if any
+                if (this.searchQuery) {
+                    events = events.filter(e => 
+                        e.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                        e.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        e.location.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+                }
+                
+                const totalItems = events.length;
+                const totalPages = Math.ceil(totalItems / this.itemsPerPage);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const paginatedEvents = events.slice(startIndex, startIndex + this.itemsPerPage);
+                
+                const eventsList = document.getElementById('eventsList');
+                
+                if (paginatedEvents.length === 0) {
+                    eventsList.innerHTML = '<div class="card-body"><p>No events found.</p></div>';
+                } else {
+                    eventsList.innerHTML = paginatedEvents.map(event => {
+                        const eventDate = new Date(event.date);
+                        const month = eventDate.toLocaleString('en-US', { month: 'short' });
+                        const day = eventDate.getDate();
+                        
+                        return `
+                            <div class="event-card">
+                                <div class="post-actions">
+                                    <button class="action-btn edit edit-btn" data-type="event" data-id="${event.id}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-btn" data-type="event" data-id="${event.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="event-date">
+                                    <div class="event-month">${month}</div>
+                                    <div class="event-day">${day}</div>
+                                </div>
+                                <div class="event-content">
+                                    <h3 class="event-title">${event.title}</h3>
+                                    <div class="event-meta">
+                                        <div><i class="far fa-calendar"></i> ${eventDate.toLocaleDateString()}</div>
+                                        <div><i class="fas fa-map-marker-alt"></i> ${event.location}</div>
+                                    </div>
+                                    <p class="post-excerpt">${event.description}</p>
+                                    <a href="#" class="btn btn-primary">Register Now</a>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+                
+                // Update pagination
+                this.updatePagination('eventsPagination', totalPages);
+            },
+            
+            // Load and display jobs with pagination
+            loadJobs: function() {
+                let jobs = Database.getJobs();
+                
+                // Apply search filter if any
+                if (this.searchQuery) {
+                    jobs = jobs.filter(j => 
+                        j.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                        j.company.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        j.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        j.tags.some(tag => tag.toLowerCase().includes(this.searchQuery.toLowerCase()))
+                    );
+                }
+                
+                const totalItems = jobs.length;
+                const totalPages = Math.ceil(totalItems / this.itemsPerPage);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const paginatedJobs = jobs.slice(startIndex, startIndex + this.itemsPerPage);
+                
+                const jobsList = document.getElementById('jobsList');
+                
+                if (paginatedJobs.length === 0) {
+                    jobsList.innerHTML = '<div class="card-body"><p>No jobs found.</p></div>';
+                } else {
+                    jobsList.innerHTML = paginatedJobs.map(job => `
+                        <div class="job-card">
+                            <div class="post-actions">
+                                <button class="action-btn edit edit-btn" data-type="job" data-id="${job.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete delete-btn" data-type="job" data-id="${job.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="job-header">
+                                <div>
+                                    <h3 class="job-title">${job.title}</h3>
+                                    <div class="job-company">${job.company}</div>
+                                </div>
+                                <div class="job-type">${job.type}</div>
+                            </div>
+                            <div class="job-meta">
+                                <div><i class="fas fa-map-marker-alt"></i> ${job.location}</div>
+                                <div><i class="far fa-clock"></i> ${this.formatTime(job.timestamp)}</div>
+                            </div>
+                            <div class="job-description">${job.description}</div>
+                            <div class="job-tags">
+                                ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
+                            </div>
+                            <a href="#" class="btn btn-primary">Apply Now</a>
+                        </div>
+                    `).join('');
+                }
+                
+                // Update pagination
+                this.updatePagination('jobsPagination', totalPages);
+            },
+
+            // Load and display communities
+            loadCommunities: function() {
+                const communities = Database.getCommunities();
+                const communitiesList = document.getElementById('communitiesList');
+                
+                communitiesList.innerHTML = communities.map(community => `
+                    <li>
+                        <a href="#">
+                            <i class="${community.icon}"></i> ${community.name}
+                            <span class="count">${community.members}</span>
+                        </a>
+                    </li>
+                `).join('');
+            },
+
+            // Load popular tags
+            loadPopularTags: function() {
+                // Extract tags from all content
+                const allTags = [];
+                
+                // From questions
+                Database.getQuestions().forEach(question => {
+                    allTags.push(...question.tags);
+                });
+                
+                // From articles
+                Database.getArticles().forEach(article => {
+                    allTags.push(...article.tags);
+                });
+                
+                // From projects
+                Database.getProjects().forEach(project => {
+                    allTags.push(...project.tools);
+                });
+                
+                // From jobs
+                Database.getJobs().forEach(job => {
+                    allTags.push(...job.tags);
+                });
+                
+                // Count tag frequency
+                const tagCount = {};
+                allTags.forEach(tag => {
+                    tagCount[tag] = (tagCount[tag] || 0) + 1;
+                });
+                
+                // Get top 15 tags
+                const popularTags = Object.entries(tagCount)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 15)
+                    .map(entry => entry[0]);
+                
+                const popularTagsContainer = document.getElementById('popularTags');
+                popularTagsContainer.innerHTML = popularTags.map(tag => `
+                    <a href="#" class="tag">${tag}</a>
+                `).join('');
+            },
+
+            // Load notifications
+            loadNotifications: function() {
+                const notifications = Database.getNotifications();
+                const notificationList = document.getElementById('notificationList');
+                
+                if (notifications.length === 0) {
+                    notificationList.innerHTML = '<div class="notification-item"><div class="notification-message">No notifications</div></div>';
+                } else {
+                    notificationList.innerHTML = notifications.map(notification => `
+                        <div class="notification-item ${notification.read ? '' : 'unread'}" data-id="${notification.id}">
+                            <div class="notification-title">${notification.title}</div>
+                            <div class="notification-message">${notification.message}</div>
+                            <div class="notification-time">${this.formatTime(notification.timestamp)}</div>
+                        </div>
+                    `).join('');
+                    
+                    // Add click event to mark as read
+                    notificationList.querySelectorAll('.notification-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            const notificationId = parseInt(item.getAttribute('data-id'));
+                            Database.markNotificationAsRead(notificationId);
+                            this.loadNotifications();
+                            this.updateNotificationBadges();
+                        });
+                    });
+                }
+            },
+            
+            // Load and display conversations
+            loadConversations: function() {
+                const conversations = Database.getConversations();
+                const conversationsList = document.getElementById('conversationsList');
+                
+                if (conversations.length === 0) {
+                    conversationsList.innerHTML = '<div class="conversation"><div class="conversation-info"><div class="conversation-name">No conversations yet</div></div></div>';
+                    return;
+                }
+                
+                conversationsList.innerHTML = conversations.map(conversation => `
+                    <div class="conversation ${conversation.id === 1 ? 'active' : ''}" data-id="${conversation.id}">
+                        <img src="${conversation.avatar}" alt="User" class="conversation-avatar">
+                        <div class="conversation-info">
+                            <div class="conversation-name">${conversation.name}</div>
+                            <div class="conversation-preview">${conversation.lastMessage}</div>
+                        </div>
+                        <div class="conversation-time">${this.formatTime(conversation.timestamp)}</div>
+                    </div>
+                `).join('');
+                
+                // Add click event to conversations
+                document.querySelectorAll('.conversation').forEach(convo => {
+                    convo.addEventListener('click', () => {
+                        document.querySelectorAll('.conversation').forEach(c => c.classList.remove('active'));
+                        convo.classList.add('active');
+                        this.loadConversation(parseInt(convo.getAttribute('data-id')));
+                    });
+                });
+                
+                // Load the first conversation by default
+                if (conversations.length > 0) {
+                    this.loadConversation(conversations[0].id);
+                }
+            },
+            
+            // Load a specific conversation
+            loadConversation: function(conversationId) {
+                const conversations = Database.getConversations();
+                const conversation = conversations.find(c => c.id === conversationId);
+                
+                if (!conversation) return;
+                
+                document.getElementById('chatUserName').textContent = conversation.name;
+                const chatMessages = document.getElementById('chatMessages');
+                
+                chatMessages.innerHTML = conversation.messages.map(message => `
+                    <div class="message ${message.sender === 'You' ? 'own' : ''}">
+                        <div class="message-bubble">${message.text}</div>
+                        <div class="message-time">${this.formatTime(message.timestamp)}</div>
+                    </div>
+                `).join('');
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            },
+
+            // Perform search across all content
+            performSearch: function() {
+                if (this.searchQuery.trim() === '') {
+                    // Clear search results
+                    document.getElementById('forumSearchResults').style.display = 'none';
+                    this.loadQuestions();
+                    this.loadArticles();
+                    this.loadProjects();
+                    this.loadEvents();
+                    this.loadJobs();
+                    return;
+                }
+
+                const results = Database.search(this.searchQuery);
+                
+                // Show search results in forum page
+                if (document.getElementById('forum').classList.contains('active')) {
+                    const searchResults = document.getElementById('forumSearchResults');
+                    const totalResults = Object.values(results).reduce((sum, arr) => sum + arr.length, 0);
+                    
+                    if (totalResults > 0) {
+                        searchResults.innerHTML = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Search Results for "${this.searchQuery}"</h3>
+                                    <p>Found ${totalResults} results across all categories</p>
+                                    <div class="post-tags">
+                                        <span class="tag">Questions: ${results.questions.length}</span>
+                                        <span class="tag">Articles: ${results.articles.length}</span>
+                                        <span class="tag">Projects: ${results.projects.length}</span>
+                                        <span class="tag">Events: ${results.events.length}</span>
+                                        <span class="tag">Jobs: ${results.jobs.length}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        searchResults.style.display = 'block';
+                    } else {
+                        searchResults.innerHTML = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>No results found for "${this.searchQuery}"</h3>
+                                    <p>Try different keywords or browse the categories</p>
+                                </div>
+                            </div>
+                        `;
+                        searchResults.style.display = 'block';
+                    }
+                }
+                
+                // Reload all lists with filtered data
+                this.loadQuestions();
+                this.loadArticles();
+                this.loadProjects();
+                this.loadEvents();
+                this.loadJobs();
+            },
+            
+            // Submit a new question
+            submitQuestion: function() {
+                const title = document.getElementById('questionTitle').value;
+                const body = document.getElementById('questionBody').value;
+                const tags = document.getElementById('questionTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+                
+                if (!title || !body) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const question = {
+                    title,
+                    body,
+                    tags,
+                    author: 'Admin'
+                };
+                
+                Database.addQuestion(question);
+                
+                // Reset form
+                document.getElementById('questionForm').reset();
+                
+                // Go back to forum
+                this.showPage('forum');
+                
+                // Reload questions
+                this.loadQuestions();
+                
+                alert('Question posted successfully!');
+            },
+
+            // Update question
+            updateQuestion: function() {
+                const questionId = parseInt(document.getElementById('editQuestionId').value);
+                const title = document.getElementById('editQuestionTitle').value;
+                const body = document.getElementById('editQuestionBody').value;
+                const tags = document.getElementById('editQuestionTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+                
+                if (!title || !body) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const updatedQuestion = {
+                    title,
+                    body,
+                    tags
+                };
+                
+                if (Database.updateQuestion(questionId, updatedQuestion)) {
+                    // Reset form
+                    document.getElementById('editQuestionForm').reset();
+                    
+                    // Go back to forum
+                    this.showPage('forum');
+                    
+                    // Reload questions
+                    this.loadQuestions();
+                    
+                    alert('Question updated successfully!');
+                } else {
+                    alert('Error updating question');
+                }
+            },
+
+            // Handle edit action
+            handleEdit: function(btn) {
+                const type = btn.getAttribute('data-type');
+                const id = parseInt(btn.getAttribute('data-id'));
+                
+                switch (type) {
+                    case 'question':
+                        this.editQuestion(id);
+                        break;
+                    case 'article':
+                        this.editArticle(id);
+                        break;
+                    case 'project':
+                        this.editProject(id);
+                        break;
+                    case 'event':
+                        this.editEvent(id);
+                        break;
+                    case 'job':
+                        this.editJob(id);
+                        break;
+                }
+            },
+
+            // Handle delete action
+            handleDelete: function(btn) {
+                const type = btn.getAttribute('data-type');
+                const id = parseInt(btn.getAttribute('data-id'));
+                
+                if (confirm(`Are you sure you want to delete this ${type}?`)) {
+                    switch (type) {
+                        case 'question':
+                            if (Database.deleteQuestion(id)) {
+                                this.loadQuestions();
+                                alert('Question deleted successfully!');
+                            }
+                            break;
+                        case 'article':
+                            if (Database.deleteArticle(id)) {
+                                this.loadArticles();
+                                alert('Article deleted successfully!');
+                            }
+                            break;
+                        case 'project':
+                            if (Database.deleteProject(id)) {
+                                this.loadProjects();
+                                alert('Project deleted successfully!');
+                            }
+                            break;
+                        case 'event':
+                            if (Database.deleteEvent(id)) {
+                                this.loadEvents();
+                                alert('Event deleted successfully!');
+                            }
+                            break;
+                        case 'job':
+                            // Note: Jobs don't have delete functionality in the current Database implementation
+                            alert('Delete functionality for jobs is not implemented yet');
+                            break;
+                    }
+                }
+            },
+
+            // Edit question
+            editQuestion: function(questionId) {
+                const question = Database.getQuestions().find(q => q.id === questionId);
+                if (!question) return;
+                
+                document.getElementById('editQuestionId').value = question.id;
+                document.getElementById('editQuestionTitle').value = question.title;
+                document.getElementById('editQuestionBody').value = question.body;
+                document.getElementById('editQuestionTags').value = question.tags.join(', ');
+                
+                this.showPage('editQuestion');
+            },
+
+            // Edit article
+            editArticle: function(articleId) {
+                const article = Database.getArticles().find(a => a.id === articleId);
+                if (!article) return;
+                
+                document.getElementById('editArticleId').value = article.id;
+                document.getElementById('editArticleTitle').value = article.title;
+                document.getElementById('editArticleSummary').value = article.summary;
+                document.getElementById('editArticleContent').value = article.content;
+                document.getElementById('editArticleTags').value = article.tags.join(', ');
+                
+                this.showPage('editArticle');
+            },
+
+            // Update article
+            updateArticle: function() {
+                const articleId = parseInt(document.getElementById('editArticleId').value);
+                const title = document.getElementById('editArticleTitle').value;
+                const summary = document.getElementById('editArticleSummary').value;
+                const content = document.getElementById('editArticleContent').value;
+                const tags = document.getElementById('editArticleTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+                
+                if (!title || !summary || !content) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const updatedArticle = {
+                    title,
+                    summary,
+                    content,
+                    tags
+                };
+                
+                if (Database.updateArticle(articleId, updatedArticle)) {
+                    // Reset form
+                    document.getElementById('editArticleForm').reset();
+                    
+                    // Go back to articles
+                    this.showPage('articles');
+                    
+                    // Reload articles
+                    this.loadArticles();
+                    
+                    alert('Article updated successfully!');
+                } else {
+                    alert('Error updating article');
+                }
+            },
+
+            // Edit project
+            editProject: function(projectId) {
+                const project = Database.getProjects().find(p => p.id === projectId);
+                if (!project) return;
+                
+                document.getElementById('editProjectId').value = project.id;
+                document.getElementById('editProjectTitle').value = project.title;
+                document.getElementById('editProjectDescription').value = project.description;
+                document.getElementById('editProjectTools').value = project.tools.join(', ');
+                document.getElementById('editProjectWebsite').value = project.website || '';
+                document.getElementById('editProjectDemo').value = project.demo || '';
+                
+                this.showPage('editProject');
+            },
+
+            // Update project
+            updateProject: function() {
+                const projectId = parseInt(document.getElementById('editProjectId').value);
+                const title = document.getElementById('editProjectTitle').value;
+                const description = document.getElementById('editProjectDescription').value;
+                const tools = document.getElementById('editProjectTools').value.split(',').map(tool => tool.trim()).filter(tool => tool);
+                const website = document.getElementById('editProjectWebsite').value;
+                const demo = document.getElementById('editProjectDemo').value;
+                
+                if (!title || !description) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const updatedProject = {
+                    title,
+                    description,
+                    tools,
+                    website,
+                    demo
+                };
+                
+                if (Database.updateProject(projectId, updatedProject)) {
+                    // Reset form
+                    document.getElementById('editProjectForm').reset();
+                    
+                    // Go back to projects
+                    this.showPage('projects');
+                    
+                    // Reload projects
+                    this.loadProjects();
+                    
+                    alert('Project updated successfully!');
+                } else {
+                    alert('Error updating project');
+                }
+            },
+
+            // Edit event
+            editEvent: function(eventId) {
+                const event = Database.getEvents().find(e => e.id === eventId);
+                if (!event) return;
+                
+                document.getElementById('editEventId').value = event.id;
+                document.getElementById('editEventTitle').value = event.title;
+                document.getElementById('editEventDescription').value = event.description;
+                document.getElementById('editEventDate').value = event.date;
+                document.getElementById('editEventLocation').value = event.location;
+                
+                this.showPage('editEvent');
+            },
+
+            // Update event
+            updateEvent: function() {
+                const eventId = parseInt(document.getElementById('editEventId').value);
+                const title = document.getElementById('editEventTitle').value;
+                const description = document.getElementById('editEventDescription').value;
+                const date = document.getElementById('editEventDate').value;
+                const location = document.getElementById('editEventLocation').value;
+                
+                if (!title || !description || !date || !location) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const updatedEvent = {
+                    title,
+                    description,
+                    date,
+                    location
+                };
+                
+                if (Database.updateEvent(eventId, updatedEvent)) {
+                    // Reset form
+                    document.getElementById('editEventForm').reset();
+                    
+                    // Go back to events
+                    this.showPage('events');
+                    
+                    // Reload events
+                    this.loadEvents();
+                    
+                    alert('Event updated successfully!');
+                } else {
+                    alert('Error updating event');
+                }
+            },
+
+            // Edit job (placeholder - jobs don't have edit in current implementation)
+            editJob: function(jobId) {
+                alert('Edit functionality for jobs is not implemented yet');
+            },
+            
+            // Submit a new article
+            submitArticle: function() {
+                const title = document.getElementById('articleTitle').value;
+                const summary = document.getElementById('articleSummary').value;
+                const content = document.getElementById('articleContent').value;
+                const tags = document.getElementById('articleTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+                
+                if (!title || !summary || !content) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const article = {
+                    title,
+                    summary,
+                    content,
+                    tags,
+                    author: 'Admin'
+                };
+                
+                Database.addArticle(article);
+                
+                // Reset form
+                document.getElementById('articleForm').reset();
+                
+                // Go back to articles
+                this.showPage('articles');
+                
+                // Reload articles
+                this.loadArticles();
+                
+                alert('Article published successfully!');
+            },
+            
+            // Submit a new project
+            submitProject: function() {
+                const title = document.getElementById('projectTitle').value;
+                const description = document.getElementById('projectDescription').value;
+                const tools = document.getElementById('projectTools').value.split(',').map(tool => tool.trim()).filter(tool => tool);
+                const website = document.getElementById('projectWebsite').value;
+                const demo = document.getElementById('projectDemo').value;
+                
+                if (!title || !description) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const project = {
+                    title,
+                    description,
+                    tools,
+                    website,
+                    demo,
+                    author: 'Admin'
+                };
+                
+                Database.addProject(project);
+                
+                // Reset form
+                document.getElementById('projectForm').reset();
+                
+                // Go back to projects
+                this.showPage('projects');
+                
+                // Reload projects
+                this.loadProjects();
+                
+                alert('Project added successfully!');
+            },
+            
+            // Submit a new event
+            submitEvent: function() {
+                const title = document.getElementById('eventTitle').value;
+                const description = document.getElementById('eventDescription').value;
+                const date = document.getElementById('eventDate').value;
+                const location = document.getElementById('eventLocation').value;
+                
+                if (!title || !description || !date || !location) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                const event = {
+                    title,
+                    description,
+                    date,
+                    location
+                };
+                
+                Database.addEvent(event);
+                
+                // Reset form
+                document.getElementById('eventForm').reset();
+                
+                // Go back to events
+                this.showPage('events');
+                
+                // Reload events
+                this.loadEvents();
+                
+                alert('Event added successfully!');
+            },
+            
+            // Send a message
+            sendMessage: function() {
+                const messageInput = document.getElementById('messageInput');
+                const messageText = messageInput.value.trim();
+                
+                if (!messageText) return;
+                
+                const activeConversation = document.querySelector('.conversation.active');
+                if (!activeConversation) return;
+                
+                const conversationId = parseInt(activeConversation.getAttribute('data-id'));
+                
+                const message = {
+                    text: messageText,
+                    sender: 'You'
+                };
+                
+                Database.addMessage(conversationId, message);
+                
+                // Clear input
+                messageInput.value = '';
+                
+                // Reload conversation
+                this.loadConversation(conversationId);
+                
+                // Update conversations list
+                this.loadConversations();
+            },
+            
+            // Handle voting
+            handleVote: function(voteBtn) {
+                const questionId = parseInt(voteBtn.getAttribute('data-id'));
+                const direction = voteBtn.getAttribute('data-direction');
+                const change = direction === 'up' ? 1 : -1;
+                
+                Database.updateQuestionVote(questionId, change);
+                
+                // Update UI
+                const voteCount = voteBtn.parentElement.querySelector('.vote-count');
+                let count = parseInt(voteCount.textContent);
+                count += change;
+                voteCount.textContent = count;
+                
+                // Visual feedback
+                voteBtn.style.color = 'var(--primary)';
+                setTimeout(() => {
+                    voteBtn.style.color = '';
+                }, 300);
+            },
+
+            // Attach edit/delete listeners to dynamically created elements
+            attachEditDeleteListeners: function() {
+                // Edit buttons
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.handleEdit(btn);
+                    });
+                });
+                
+                // Delete buttons
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.handleDelete(btn);
+                    });
+                });
+            },
+            
+            // Format timestamp to relative time
+            formatTime: function(timestamp) {
+                const now = new Date();
+                const time = new Date(timestamp);
+                const diffInSeconds = Math.floor((now - time) / 1000);
+                
+                if (diffInSeconds < 60) {
+                    return 'just now';
+                } else if (diffInSeconds < 3600) {
+                    const minutes = Math.floor(diffInSeconds / 60);
+                    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                } else if (diffInSeconds < 86400) {
+                    const hours = Math.floor(diffInSeconds / 3600);
+                    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                } else {
+                    const days = Math.floor(diffInSeconds / 86400);
+                    return `${days} day${days > 1 ? 's' : ''} ago`;
+                }
+            }
+        };
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            UIController.init();
+        });
+    </script>
+</body>
+</html>

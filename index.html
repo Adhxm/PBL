@@ -87,12 +87,13 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px; /* Increased gap */
             font-size: 20px;
             font-weight: 700;
             color: var(--dark);
             text-decoration: none;
             margin-right: auto;
+            padding: 0 8px; /* Added padding */
         }
 
         .logo-icon {
@@ -239,10 +240,51 @@
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
+            position: relative;
         }
 
         .user-info:hover {
             background-color: var(--gray-100);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 200px;
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--gray-700);
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: var(--gray-50);
+        }
+
+        .user-dropdown-item.logout {
+            color: var(--danger);
         }
 
         .avatar {
@@ -379,6 +421,90 @@
             color: var(--primary);
         }
 
+        /* Login/Register Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--gray-500);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 16px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 8px 16px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: var(--transition);
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
         /* Main Content */
         main {
             display: flex;
@@ -475,6 +601,83 @@
 
         .page.active {
             display: block;
+        }
+
+        /* Landing Page Styles */
+        .landing-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .landing-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .landing-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .landing-subtitle {
+            font-size: 18px;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .landing-actions {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .landing-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .feature-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.6;
         }
 
         /* Page Headers */
@@ -1527,7 +1730,7 @@
             border-bottom: 1px solid var(--gray-100);
             font-weight: 600;
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -1631,781 +1834,968 @@
             background-color: var(--primary);
             color: white;
         }
+
+        /* Answer Section */
+        .answer-section {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .answer-form {
+            margin-bottom: 24px;
+        }
+
+        .answer-list {
+            margin-top: 16px;
+        }
+
+        .answer-item {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .answer-item:last-child {
+            border-bottom: none;
+        }
+
+        .answer-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .answer-author {
+            font-weight: 500;
+        }
+
+        .answer-date {
+            color: var(--gray-500);
+            font-size: 12px;
+        }
+
+        .answer-content {
+            line-height: 1.5;
+        }
+
+        .answer-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .answer-votes {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .answer-accepted {
+            background-color: var(--success);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo">
-                <i class="fas fa-code logo-icon"></i>
-                <span>DevHub</span>
-            </a>
-            
-            <nav class="desktop-nav">
-                <ul>
-                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-page="forum">Forum</a></li>
-                    <li><a href="#" class="nav-link" data-page="articles">Articles</a></li>
-                    <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
-                    <li><a href="#" class="nav-link" data-page="events">Events</a></li>
-                    <li><a href="#" class="nav-link" data-page="jobs">Jobs</a></li>
-                </ul>
-            </nav>
-            
-            <div class="search-bar">
-                <input type="text" id="globalSearch" placeholder="Search questions, articles, projects...">
-                <i class="fas fa-search search-icon"></i>
+    <!-- Login/Register Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Welcome to DevHub</h3>
+                <button class="close-btn" id="closeAuthModal">&times;</button>
             </div>
-            
-            <div class="header-actions">
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                
-                <a href="#" class="btn btn-outline">Ask Question</a>
-                
-                <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User Avatar" class="avatar">
-                    <span class="user-name">Admin</span>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="loginTab">Login</button>
+                    <button class="auth-tab" id="registerTab">Register</button>
                 </div>
                 
-                <a href="#" class="icon-btn" id="inboxBtn">
-                    <i class="fas fa-inbox"></i>
-                    <span class="notification-badge">3</span>
-                </a>
+                <form class="auth-form active" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                    </div>
+                </form>
                 
-                <a href="#" class="icon-btn">
-                    <i class="fas fa-trophy"></i>
-                </a>
-                
-                <a href="#" class="icon-btn" id="notificationsBtn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">5</span>
-                </a>
-                
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <form class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label" for="registerName">Full Name</label>
+                        <input type="text" id="registerName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerConfirmPassword">Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+                    </div>
+                </form>
             </div>
         </div>
-        
-        <!-- Notification Panel -->
-        <div class="notification-panel" id="notificationPanel">
-            <div class="notification-header">
-                <span>Notifications</span>
-                <button class="btn btn-outline btn-sm" id="markAllRead">Mark all as read</button>
-            </div>
-            <div class="notification-list" id="notificationList">
-                <!-- Notifications will be loaded here -->
-            </div>
-            <div class="notification-actions">
-                <a href="#" class="btn btn-outline">View All</a>
-            </div>
-        </div>
-        
-        <nav class="mobile-nav">
-            <ul>
-                <li><a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#" data-page="forum"><i class="fas fa-comments"></i> Forum</a></li>
-                <li><a href="#" data-page="articles"><i class="fas fa-newspaper"></i> Articles</a></li>
-                <li><a href="#" data-page="projects"><i class="fas fa-code-branch"></i> Projects</a></li>
-                <li><a href="#" data-page="events"><i class="fas fa-calendar-alt"></i> Events</a></li>
-                <li><a href="#" data-page="jobs"><i class="fas fa-briefcase"></i> Jobs</a></li>
-                <li><a href="#" data-page="profile"><i class="fas fa-user"></i> Profile</a></li>
-                <li><a href="#" data-page="messages"><i class="fas fa-envelope"></i> Messages</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <main>
-            <aside class="sidebar">
-                <div class="sidebar-section">
-                    <div class="sidebar-header">Navigation</div>
-                    <ul class="sidebar-list">
-                        <li><a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#" data-page="forum"><i class="fas fa-comments"></i> Forum <span class="count">1.2k</span></a></li>
-                        <li><a href="#" data-page="articles"><i class="fas fa-newspaper"></i> Articles <span class="count">342</span></a></li>
-                        <li><a href="#" data-page="projects"><i class="fas fa-code-branch"></i> Projects <span class="count">89</span></a></li>
-                        <li><a href="#" data-page="events"><i class="fas fa-calendar-alt"></i> Events <span class="count">24</span></a></li>
-                        <li><a href="#" data-page="jobs"><i class="fas fa-briefcase"></i> Jobs <span class="count">56</span></a></li>
-                    </ul>
-                </div>
-                
-                <div class="sidebar-section">
-                    <div class="sidebar-header">Your Communities</div>
-                    <div class="community-search">
-                        <input type="text" id="communitySearch" placeholder="Search communities...">
-                    </div>
-                    <ul class="sidebar-list" id="communitiesList">
-                        <!-- Communities will be loaded here -->
-                    </ul>
-                </div>
-                
-                <div class="sidebar-section">
-                    <div class="sidebar-header">Popular Tags</div>
-                    <div class="card-body">
-                        <div class="post-tags" id="popularTags">
-                            <!-- Popular tags will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-            </aside>
-            
-            <div class="content">
-                <!-- Home Page -->
-                <section id="home" class="page active">
-                    <div class="hero">
-                        <h1>Welcome to DevHub</h1>
-                        <p>A community of developers helping each other to learn, grow, and solve coding challenges.</p>
-                        <a href="#" class="btn btn-primary">Join the Community</a>
-                    </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number">12.5k</div>
-                            <div class="stat-label">Developers</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">3.7k</div>
-                            <div class="stat-label">Discussions</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">892</div>
-                            <div class="stat-label">Projects</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">56</div>
-                            <div class="stat-label">Jobs Posted</div>
-                        </div>
-                    </div>
-                    
-                    <div class="page-header">
-                        <h2 class="page-title">Top Questions</h2>
-                        <div class="page-actions">
-                            <a href="#" class="btn btn-outline" id="askQuestionBtn">Ask Question</a>
-                            <a href="#" class="btn btn-primary">Newest</a>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div id="questionsList">
-                            <!-- Questions will be loaded here from database -->
-                        </div>
-                        <div class="pagination" id="questionsPagination">
-                            <!-- Pagination will be loaded here -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Forum Page -->
-                <section id="forum" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Developer Forum</h2>
-                        <div class="page-actions">
-                            <a href="#" class="btn btn-primary" id="askQuestionBtnForum">Ask Question</a>
-                        </div>
-                    </div>
-                    
-                    <div class="search-results" id="forumSearchResults" style="display: none;">
-                        <!-- Search results will be shown here -->
-                    </div>
-                    
-                    <!-- Tag Filter -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Filter by Tags</h3>
-                            <div class="tag-filter" id="tagFilter">
-                                <!-- Tag filters will be loaded here -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">All Questions</h3>
-                            <div>
-                                <a href="#" class="btn btn-outline" id="sortNewest">Newest</a>
-                                <a href="#" class="btn btn-outline" id="sortActive">Active</a>
-                                <a href="#" class="btn btn-outline" id="sortUnanswered">Unanswered</a>
-                            </div>
-                        </div>
-                        
-                        <div id="questionsListForum">
-                            <!-- Questions will be loaded here from database -->
-                        </div>
-                        <div class="pagination" id="forumPagination">
-                            <!-- Pagination will be loaded here -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Ask Question Form -->
-                <section id="askQuestion" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Ask a Question</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="questionForm">
-                                <div class="form-group">
-                                    <label class="form-label" for="questionTitle">Title</label>
-                                    <input type="text" id="questionTitle" class="form-control" placeholder="What's your programming question? Be specific." required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="questionBody">Body</label>
-                                    <textarea id="questionBody" class="form-control" placeholder="Describe your problem in detail. Include any error messages, code snippets, or relevant information." required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="questionTags">Tags</label>
-                                    <input type="text" id="questionTags" class="form-control" placeholder="Add tags (e.g., javascript, react, node.js)">
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Post Your Question</button>
-                                    <button type="button" class="btn btn-outline" id="cancelQuestionBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Edit Question Form -->
-                <section id="editQuestion" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Edit Question</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="editQuestionForm">
-                                <input type="hidden" id="editQuestionId">
-                                <div class="form-group">
-                                    <label class="form-label" for="editQuestionTitle">Title</label>
-                                    <input type="text" id="editQuestionTitle" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editQuestionBody">Body</label>
-                                    <textarea id="editQuestionBody" class="form-control" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editQuestionTags">Tags</label>
-                                    <input type="text" id="editQuestionTags" class="form-control">
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Update Question</button>
-                                    <button type="button" class="btn btn-outline" id="cancelEditQuestionBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Articles Page -->
-                <section id="articles" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Tech Articles</h2>
-                        <div class="page-actions">
-                            <a href="#" class="btn btn-primary" id="writeArticleBtn">Write Article</a>
-                        </div>
-                    </div>
-                    
-                    <div id="articlesList">
-                        <!-- Articles will be loaded here from database -->
-                    </div>
-                    <div class="pagination" id="articlesPagination">
-                        <!-- Pagination will be loaded here -->
-                    </div>
-                </section>
-
-                <!-- Write Article Form -->
-                <section id="writeArticle" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Write Article</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="articleForm">
-                                <div class="form-group">
-                                    <label class="form-label" for="articleTitle">Title</label>
-                                    <input type="text" id="articleTitle" class="form-control" placeholder="Enter article title" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="articleSummary">Summary</label>
-                                    <textarea id="articleSummary" class="form-control" placeholder="Brief summary of your article" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="articleContent">Content</label>
-                                    <textarea id="articleContent" class="form-control" placeholder="Write your article content here..." rows="10" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="articleTags">Tags</label>
-                                    <input type="text" id="articleTags" class="form-control" placeholder="Add tags (e.g., javascript, react, node.js)">
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Publish Article</button>
-                                    <button type="button" class="btn btn-outline" id="cancelArticleBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Edit Article Form -->
-                <section id="editArticle" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Edit Article</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="editArticleForm">
-                                <input type="hidden" id="editArticleId">
-                                <div class="form-group">
-                                    <label class="form-label" for="editArticleTitle">Title</label>
-                                    <input type="text" id="editArticleTitle" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editArticleSummary">Summary</label>
-                                    <textarea id="editArticleSummary" class="form-control" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editArticleContent">Content</label>
-                                    <textarea id="editArticleContent" class="form-control" rows="10" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editArticleTags">Tags</label>
-                                    <input type="text" id="editArticleTags" class="form-control">
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Update Article</button>
-                                    <button type="button" class="btn btn-outline" id="cancelEditArticleBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Article Detail Page -->
-                <section id="articleDetail" class="page">
-                    <div class="article-detail" id="articleDetailContent">
-                        <!-- Article detail will be loaded here -->
-                    </div>
-                </section>
-
-                <!-- Projects Page -->
-                <section id="projects" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Project Showcase</h2>
-                        <div class="page-actions">
-                            <a href="#" class="btn btn-primary" id="addProjectBtn">Add Project</a>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-3" id="projectsList">
-                        <!-- Projects will be loaded here from database -->
-                    </div>
-                    <div class="pagination" id="projectsPagination">
-                        <!-- Pagination will be loaded here -->
-                    </div>
-                </section>
-
-                <!-- Add Project Form -->
-                <section id="addProject" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Add Project</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="projectForm">
-                                <div class="form-group">
-                                    <label class="form-label" for="projectTitle">Project Title</label>
-                                    <input type="text" id="projectTitle" class="form-control" placeholder="Enter project title" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="projectDescription">Description</label>
-                                    <textarea id="projectDescription" class="form-control" placeholder="Describe your project" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="projectTools">Tools & Technologies</label>
-                                    <input type="text" id="projectTools" class="form-control" placeholder="e.g., React, Node.js, MongoDB">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="projectWebsite">Website URL</label>
-                                    <input type="url" id="projectWebsite" class="form-control" placeholder="https://example.com">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="projectDemo">Demo URL</label>
-                                    <input type="url" id="projectDemo" class="form-control" placeholder="https://demo.example.com">
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Add Project</button>
-                                    <button type="button" class="btn btn-outline" id="cancelProjectBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Edit Project Form -->
-                <section id="editProject" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Edit Project</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="editProjectForm">
-                                <input type="hidden" id="editProjectId">
-                                <div class="form-group">
-                                    <label class="form-label" for="editProjectTitle">Project Title</label>
-                                    <input type="text" id="editProjectTitle" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editProjectDescription">Description</label>
-                                    <textarea id="editProjectDescription" class="form-control" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editProjectTools">Tools & Technologies</label>
-                                    <input type="text" id="editProjectTools" class="form-control">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editProjectWebsite">Website URL</label>
-                                    <input type="url" id="editProjectWebsite" class="form-control">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editProjectDemo">Demo URL</label>
-                                    <input type="url" id="editProjectDemo" class="form-control">
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Update Project</button>
-                                    <button type="button" class="btn btn-outline" id="cancelEditProjectBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Events Page -->
-                <section id="events" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Tech Events</h2>
-                        <div class="page-actions">
-                            <a href="#" class="btn btn-primary" id="addEventBtn">Add Event</a>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-2" id="eventsList">
-                        <!-- Events will be loaded here from database -->
-                    </div>
-                    <div class="pagination" id="eventsPagination">
-                        <!-- Pagination will be loaded here -->
-                    </div>
-                </section>
-
-                <!-- Add Event Form -->
-                <section id="addEvent" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Add Event</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="eventForm">
-                                <div class="form-group">
-                                    <label class="form-label" for="eventTitle">Event Title</label>
-                                    <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="eventDescription">Description</label>
-                                    <textarea id="eventDescription" class="form-control" placeholder="Describe the event" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="eventDate">Date</label>
-                                    <input type="date" id="eventDate" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="eventLocation">Location</label>
-                                    <input type="text" id="eventLocation" class="form-control" placeholder="e.g., San Francisco, CA or Online" required>
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Add Event</button>
-                                    <button type="button" class="btn btn-outline" id="cancelEventBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Edit Event Form -->
-                <section id="editEvent" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Edit Event</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="editEventForm">
-                                <input type="hidden" id="editEventId">
-                                <div class="form-group">
-                                    <label class="form-label" for="editEventTitle">Event Title</label>
-                                    <input type="text" id="editEventTitle" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editEventDescription">Description</label>
-                                    <textarea id="editEventDescription" class="form-control" required></textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editEventDate">Date</label>
-                                    <input type="date" id="editEventDate" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label" for="editEventLocation">Location</label>
-                                    <input type="text" id="editEventLocation" class="form-control" required>
-                                </div>
-                                
-                                <div class="page-actions">
-                                    <button type="submit" class="btn btn-primary">Update Event</button>
-                                    <button type="button" class="btn btn-outline" id="cancelEditEventBtn">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Jobs Page -->
-                <section id="jobs" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Job Board</h2>
-                    </div>
-                    
-                    <div id="jobsList">
-                        <!-- Jobs will be loaded here from database -->
-                    </div>
-                    <div class="pagination" id="jobsPagination">
-                        <!-- Pagination will be loaded here -->
-                    </div>
-                </section>
-
-                <!-- Profile Page -->
-                <section id="profile" class="page">
-                    <div class="profile-header">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face" alt="User Avatar" class="profile-avatar">
-                        <div class="profile-info">
-                            <h1 class="profile-name">Admin Developer</h1>
-                            <div class="profile-title">Full-stack Developer & Community Admin</div>
-                            <p class="profile-bio">Full-stack developer who loves learning new technologies. Specialized in React, Node.js, TypeScript, and Python. Passionate about open source and developer communities.</p>
-                            <div class="profile-stats">
-                                <div class="profile-stat">
-                                    <div class="profile-stat-number">42</div>
-                                    <div class="profile-stat-label">Posts</div>
-                                </div>
-                                <div class="profile-stat">
-                                    <div class="profile-stat-number">128</div>
-                                    <div class="profile-stat-label">Comments</div>
-                                </div>
-                                <div class="profile-stat">
-                                    <div class="profile-stat-number">7</div>
-                                    <div class="profile-stat-label">Projects</div>
-                                </div>
-                                <div class="profile-stat">
-                                    <div class="profile-stat-number">1.2k</div>
-                                    <div class="profile-stat-label">Reputation</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-2">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">About Me</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>I'm a passionate full-stack developer with 5 years of experience building web applications. I enjoy working with modern technologies and am always looking to learn new skills.</p>
-                                <p>Currently working as a community admin, helping developers connect and grow together.</p>
-                                
-                                <h4>Skills & Technologies</h4>
-                                <div class="post-tags">
-                                    <span class="tag">React</span>
-                                    <span class="tag">Node.js</span>
-                                    <span class="tag">TypeScript</span>
-                                    <span class="tag">Python</span>
-                                    <span class="tag">MongoDB</span>
-                                    <span class="tag">AWS</span>
-                                    <span class="tag">Docker</span>
-                                    <span class="tag">Git</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Recent Activity</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="post">
-                                    <div class="post-content">
-                                        <h3 class="post-title"><a href="#">Commented on "React Performance Optimization"</a></h3>
-                                        <p class="post-excerpt">Great article! I've found that using React.memo with custom comparison functions can significantly reduce unnecessary re-renders.</p>
-                                        <div class="post-meta">
-                                            <span>2 hours ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="post">
-                                    <div class="post-content">
-                                        <h3 class="post-title"><a href="#">Posted "State Management in Vue"</a></h3>
-                                        <p class="post-excerpt">A comprehensive comparison of state management solutions in Vue.js applications.</p>
-                                        <div class="post-meta">
-                                            <span>1 day ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="post">
-                                    <div class="post-content">
-                                        <h3 class="post-title"><a href="#">Joined "Web Performance Workshop"</a></h3>
-                                        <p class="post-excerpt">Registered for the upcoming online workshop on advanced web performance techniques.</p>
-                                        <div class="post-meta">
-                                            <span>3 days ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Messages Page -->
-                <section id="messages" class="page">
-                    <div class="page-header">
-                        <h2 class="page-title">Messages</h2>
-                    </div>
-                    
-                    <div class="messages-container">
-                        <div class="conversations">
-                            <div class="conversations-header">Conversations</div>
-                            <div class="conversations-list" id="conversationsList">
-                                <!-- Conversations will be loaded here from database -->
-                            </div>
-                        </div>
-                        
-                        <div class="chat">
-                            <div class="chat-header">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" alt="User" class="chat-avatar">
-                                <div>
-                                    <div class="chat-user" id="chatUserName">John Developer</div>
-                                    <div class="chat-status">Online</div>
-                                </div>
-                            </div>
-                            
-                            <div class="chat-messages" id="chatMessages">
-                                <!-- Messages will be loaded here from database -->
-                            </div>
-                            
-                            <div class="chat-input">
-                                <input type="text" id="messageInput" placeholder="Type a message...">
-                                <button class="btn btn-primary" id="sendMessageBtn">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <a href="#" class="footer-logo">
-                        <i class="fas fa-code"></i>
-                        <span>DevHub</span>
-                    </a>
-                    <p class="footer-description">A community of developers helping each other to learn, grow, and solve coding challenges.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+    <!-- Landing Page -->
+    <section id="landing" class="page active">
+        <div class="landing-page">
+            <div class="landing-logo">
+                <i class="fas fa-code"></i>
+            </div>
+            <h1 class="landing-title">Welcome to DevHub</h1>
+            <p class="landing-subtitle">A community of developers helping each other to learn, grow, and solve coding challenges.</p>
+            
+            <div class="landing-actions">
+                <button class="btn btn-primary" id="landingLoginBtn">Login</button>
+                <button class="btn btn-outline" id="landingRegisterBtn">Register</button>
+            </div>
+            
+            <div class="landing-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
                     </div>
+                    <h3 class="feature-title">Developer Forum</h3>
+                    <p class="feature-description">Ask questions, share knowledge, and connect with fellow developers in our active community forum.</p>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Products</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Teams</a></li>
-                        <li><a href="#">Advertising</a></li>
-                        <li><a href="#">Collectives</a></li>
-                        <li><a href="#">Talent</a></li>
-                    </ul>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3 class="feature-title">Tech Articles</h3>
+                    <p class="feature-description">Read and write articles about the latest technologies, frameworks, and development best practices.</p>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Work Here</a></li>
-                        <li><a href="#">Legal</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="feature-title">Project Showcase</h3>
+                    <p class="feature-description">Share your projects, get feedback, and discover amazing projects built by other developers.</p>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Community</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Discussions</a></li>
-                        <li><a href="#">Articles</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Jobs</a></li>
-                        <li><a href="#">Help</a></li>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="feature-title">Job Board</h3>
+                    <p class="feature-description">Find your next career opportunity or post job openings for talented developers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main App (only visible after login) -->
+    <div id="mainApp" style="display: none;">
+        <header>
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-code logo-icon"></i>
+                    <span>DevHub</span>
+                </a>
+                
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="forum">Forum</a></li>
+                        <li><a href="#" class="nav-link" data-page="articles">Articles</a></li>
+                        <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
+                        <li><a href="#" class="nav-link" data-page="events">Events</a></li>
+                        <li><a href="#" class="nav-link" data-page="jobs">Jobs</a></li>
                     </ul>
+                </nav>
+                
+                <div class="search-bar">
+                    <input type="text" id="globalSearch" placeholder="Search questions, articles, projects...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <!-- User info (shown when logged in) -->
+                    <div class="user-info" id="userInfo">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User Avatar" class="avatar">
+                        <span class="user-name" id="userDisplayName">Admin</span>
+                        
+                        <!-- User Dropdown -->
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#" class="user-dropdown-item" data-page="profile">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" class="user-dropdown-item" data-page="messages">
+                                <i class="fas fa-envelope"></i>
+                                <span>Messages</span>
+                            </a>
+                            <a href="#" class="user-dropdown-item" data-page="settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="user-dropdown-item logout" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="icon-btn" id="notificationsBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
             
-            <div class="copyright">
-                &copy; 2023 DevHub. All rights reserved.
+            <!-- Notification Panel -->
+            <div class="notification-panel" id="notificationPanel">
+                <div class="notification-header">
+                    <span>Notifications</span>
+                    <button class="btn btn-outline btn-sm" id="markAllRead">Mark all as read</button>
+                </div>
+                <div class="notification-list" id="notificationList">
+                    <!-- Notifications will be loaded here -->
+                </div>
+                <div class="notification-actions">
+                    <a href="#" class="btn btn-outline">View All</a>
+                </div>
             </div>
+            
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#" data-page="forum"><i class="fas fa-comments"></i> Forum</a></li>
+                    <li><a href="#" data-page="articles"><i class="fas fa-newspaper"></i> Articles</a></li>
+                    <li><a href="#" data-page="projects"><i class="fas fa-code-branch"></i> Projects</a></li>
+                    <li><a href="#" data-page="events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                    <li><a href="#" data-page="jobs"><i class="fas fa-briefcase"></i> Jobs</a></li>
+                    <li><a href="#" data-page="profile"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#" data-page="messages"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="#" class="logout" id="mobileLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="container">
+            <main>
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">Navigation</div>
+                        <ul class="sidebar-list">
+                            <li><a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                            <li><a href="#" data-page="forum"><i class="fas fa-comments"></i> Forum <span class="count" id="forumCount">1.2k</span></a></li>
+                            <li><a href="#" data-page="articles"><i class="fas fa-newspaper"></i> Articles <span class="count" id="articlesCount">342</span></a></li>
+                            <li><a href="#" data-page="projects"><i class="fas fa-code-branch"></i> Projects <span class="count" id="projectsCount">89</span></a></li>
+                            <li><a href="#" data-page="events"><i class="fas fa-calendar-alt"></i> Events <span class="count" id="eventsCount">24</span></a></li>
+                            <li><a href="#" data-page="jobs"><i class="fas fa-briefcase"></i> Jobs <span class="count" id="jobsCount">56</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">Your Communities</div>
+                        <div class="community-search">
+                            <input type="text" id="communitySearch" placeholder="Search communities...">
+                        </div>
+                        <ul class="sidebar-list" id="communitiesList">
+                            <!-- Communities will be loaded here -->
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">Popular Tags</div>
+                        <div class="card-body">
+                            <div class="post-tags" id="popularTags">
+                                <!-- Popular tags will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                
+                <div class="content">
+                    <!-- Home Page -->
+                    <section id="home" class="page">
+                        <div class="hero">
+                            <h1>Welcome to DevHub</h1>
+                            <p>A community of developers helping each other to learn, grow, and solve coding challenges.</p>
+                            <a href="#" class="btn btn-primary" id="joinCommunityBtn">Join the Community</a>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">12.5k</div>
+                                <div class="stat-label">Developers</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">3.7k</div>
+                                <div class="stat-label">Discussions</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">892</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">56</div>
+                                <div class="stat-label">Jobs Posted</div>
+                            </div>
+                        </div>
+                        
+                        <div class="page-header">
+                            <h2 class="page-title">Top Questions</h2>
+                            <div class="page-actions">
+                                <a href="#" class="btn btn-outline" id="askQuestionBtn">Ask Question</a>
+                                <a href="#" class="btn btn-primary">Newest</a>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div id="questionsList">
+                                <!-- Questions will be loaded here from database -->
+                            </div>
+                            <div class="pagination" id="questionsPagination">
+                                <!-- Pagination will be loaded here -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Forum Page -->
+                    <section id="forum" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Developer Forum</h2>
+                            <div class="page-actions">
+                                <a href="#" class="btn btn-primary" id="askQuestionBtnForum">Ask Question</a>
+                            </div>
+                        </div>
+                        
+                        <div class="search-results" id="forumSearchResults" style="display: none;">
+                            <!-- Search results will be shown here -->
+                        </div>
+                        
+                        <!-- Tag Filter -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 style="margin-bottom: 12px;">Filter by Tags</h3> <!-- Added margin-bottom -->
+                                <div class="tag-filter" id="tagFilter">
+                                    <!-- Tag filters will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">All Questions</h3>
+                                <div>
+                                    <a href="#" class="btn btn-outline" id="sortNewest">Newest</a>
+                                    <a href="#" class="btn btn-outline" id="sortActive">Active</a>
+                                    <a href="#" class="btn btn-outline" id="sortUnanswered">Unanswered</a>
+                                </div>
+                            </div>
+                            
+                            <div id="questionsListForum">
+                                <!-- Questions will be loaded here from database -->
+                            </div>
+                            <div class="pagination" id="forumPagination">
+                                <!-- Pagination will be loaded here -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Question Detail Page -->
+                    <section id="questionDetail" class="page">
+                        <div class="card" id="questionDetailContent">
+                            <!-- Question detail will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Ask Question Form -->
+                    <section id="askQuestion" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Ask a Question</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="questionForm">
+                                    <div class="form-group">
+                                        <label class="form-label" for="questionTitle">Title</label>
+                                        <input type="text" id="questionTitle" class="form-control" placeholder="What's your programming question? Be specific." required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="questionBody">Body</label>
+                                        <textarea id="questionBody" class="form-control" placeholder="Describe your problem in detail. Include any error messages, code snippets, or relevant information." required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="questionTags">Tags</label>
+                                        <input type="text" id="questionTags" class="form-control" placeholder="Add tags (e.g., javascript, react, node.js)">
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Post Your Question</button>
+                                        <button type="button" class="btn btn-outline" id="cancelQuestionBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Edit Question Form -->
+                    <section id="editQuestion" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Edit Question</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="editQuestionForm">
+                                    <input type="hidden" id="editQuestionId">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editQuestionTitle">Title</label>
+                                        <input type="text" id="editQuestionTitle" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editQuestionBody">Body</label>
+                                        <textarea id="editQuestionBody" class="form-control" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editQuestionTags">Tags</label>
+                                        <input type="text" id="editQuestionTags" class="form-control">
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Update Question</button>
+                                        <button type="button" class="btn btn-outline" id="cancelEditQuestionBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Articles Page -->
+                    <section id="articles" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Tech Articles</h2>
+                            <div class="page-actions">
+                                <a href="#" class="btn btn-primary" id="writeArticleBtn">Write Article</a>
+                            </div>
+                        </div>
+                        
+                        <div id="articlesList">
+                            <!-- Articles will be loaded here from database -->
+                        </div>
+                        <div class="pagination" id="articlesPagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Write Article Form -->
+                    <section id="writeArticle" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Write Article</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="articleForm">
+                                    <div class="form-group">
+                                        <label class="form-label" for="articleTitle">Title</label>
+                                        <input type="text" id="articleTitle" class="form-control" placeholder="Enter article title" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="articleSummary">Summary</label>
+                                        <textarea id="articleSummary" class="form-control" placeholder="Brief summary of your article" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="articleContent">Content</label>
+                                        <textarea id="articleContent" class="form-control" placeholder="Write your article content here..." rows="10" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="articleTags">Tags</label>
+                                        <input type="text" id="articleTags" class="form-control" placeholder="Add tags (e.g., javascript, react, node.js)">
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Publish Article</button>
+                                        <button type="button" class="btn btn-outline" id="cancelArticleBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Edit Article Form -->
+                    <section id="editArticle" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Edit Article</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="editArticleForm">
+                                    <input type="hidden" id="editArticleId">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editArticleTitle">Title</label>
+                                        <input type="text" id="editArticleTitle" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editArticleSummary">Summary</label>
+                                        <textarea id="editArticleSummary" class="form-control" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editArticleContent">Content</label>
+                                        <textarea id="editArticleContent" class="form-control" rows="10" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editArticleTags">Tags</label>
+                                        <input type="text" id="editArticleTags" class="form-control">
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Update Article</button>
+                                        <button type="button" class="btn btn-outline" id="cancelEditArticleBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Article Detail Page -->
+                    <section id="articleDetail" class="page">
+                        <div class="article-detail" id="articleDetailContent">
+                            <!-- Article detail will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Projects Page -->
+                    <section id="projects" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Project Showcase</h2>
+                            <div class="page-actions">
+                                <a href="#" class="btn btn-primary" id="addProjectBtn">Add Project</a>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-3" id="projectsList">
+                            <!-- Projects will be loaded here from database -->
+                        </div>
+                        <div class="pagination" id="projectsPagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Add Project Form -->
+                    <section id="addProject" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Add Project</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="projectForm">
+                                    <div class="form-group">
+                                        <label class="form-label" for="projectTitle">Project Title</label>
+                                        <input type="text" id="projectTitle" class="form-control" placeholder="Enter project title" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="projectDescription">Description</label>
+                                        <textarea id="projectDescription" class="form-control" placeholder="Describe your project" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="projectTools">Tools & Technologies</label>
+                                        <input type="text" id="projectTools" class="form-control" placeholder="e.g., React, Node.js, MongoDB">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="projectWebsite">Website URL</label>
+                                        <input type="url" id="projectWebsite" class="form-control" placeholder="https://example.com">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="projectDemo">Demo URL</label>
+                                        <input type="url" id="projectDemo" class="form-control" placeholder="https://demo.example.com">
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Add Project</button>
+                                        <button type="button" class="btn btn-outline" id="cancelProjectBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Edit Project Form -->
+                    <section id="editProject" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Edit Project</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="editProjectForm">
+                                    <input type="hidden" id="editProjectId">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editProjectTitle">Project Title</label>
+                                        <input type="text" id="editProjectTitle" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editProjectDescription">Description</label>
+                                        <textarea id="editProjectDescription" class="form-control" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editProjectTools">Tools & Technologies</label>
+                                        <input type="text" id="editProjectTools" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editProjectWebsite">Website URL</label>
+                                        <input type="url" id="editProjectWebsite" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editProjectDemo">Demo URL</label>
+                                        <input type="url" id="editProjectDemo" class="form-control">
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Update Project</button>
+                                        <button type="button" class="btn btn-outline" id="cancelEditProjectBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Events Page -->
+                    <section id="events" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Tech Events</h2>
+                            <div class="page-actions">
+                                <a href="#" class="btn btn-primary" id="addEventBtn">Add Event</a>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-2" id="eventsList">
+                            <!-- Events will be loaded here from database -->
+                        </div>
+                        <div class="pagination" id="eventsPagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Add Event Form -->
+                    <section id="addEvent" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Add Event</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="eventForm">
+                                    <div class="form-group">
+                                        <label class="form-label" for="eventTitle">Event Title</label>
+                                        <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="eventDescription">Description</label>
+                                        <textarea id="eventDescription" class="form-control" placeholder="Describe the event" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="eventDate">Date</label>
+                                        <input type="date" id="eventDate" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="eventLocation">Location</label>
+                                        <input type="text" id="eventLocation" class="form-control" placeholder="e.g., San Francisco, CA or Online" required>
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Add Event</button>
+                                        <button type="button" class="btn btn-outline" id="cancelEventBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Edit Event Form -->
+                    <section id="editEvent" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Edit Event</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="editEventForm">
+                                    <input type="hidden" id="editEventId">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editEventTitle">Event Title</label>
+                                        <input type="text" id="editEventTitle" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editEventDescription">Description</label>
+                                        <textarea id="editEventDescription" class="form-control" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editEventDate">Date</label>
+                                        <input type="date" id="editEventDate" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="editEventLocation">Location</label>
+                                        <input type="text" id="editEventLocation" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Update Event</button>
+                                        <button type="button" class="btn btn-outline" id="cancelEditEventBtn">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Jobs Page -->
+                    <section id="jobs" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Job Board</h2>
+                        </div>
+                        
+                        <div id="jobsList">
+                            <!-- Jobs will be loaded here from database -->
+                        </div>
+                        <div class="pagination" id="jobsPagination">
+                            <!-- Pagination will be loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Profile Page -->
+                    <section id="profile" class="page">
+                        <div class="profile-header">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face" alt="User Avatar" class="profile-avatar">
+                            <div class="profile-info">
+                                <h1 class="profile-name" id="profileUserName">Admin Developer</h1>
+                                <div class="profile-title" id="profileUserTitle">Full-stack Developer & Community Admin</div>
+                                <p class="profile-bio" id="profileUserBio">Full-stack developer who loves learning new technologies. Specialized in React, Node.js, TypeScript, and Python. Passionate about open source and developer communities.</p>
+                                <div class="profile-stats">
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">42</div>
+                                        <div class="profile-stat-label">Posts</div>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">128</div>
+                                        <div class="profile-stat-label">Comments</div>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">7</div>
+                                        <div class="profile-stat-label">Projects</div>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">1.2k</div>
+                                        <div class="profile-stat-label">Reputation</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">About Me</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>I'm a passionate full-stack developer with 5 years of experience building web applications. I enjoy working with modern technologies and am always looking to learn new skills.</p>
+                                    <p>Currently working as a community admin, helping developers connect and grow together.</p>
+                                    
+                                    <h4>Skills & Technologies</h4>
+                                    <div class="post-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">Node.js</span>
+                                        <span class="tag">TypeScript</span>
+                                        <span class="tag">Python</span>
+                                        <span class="tag">MongoDB</span>
+                                        <span class="tag">AWS</span>
+                                        <span class="tag">Docker</span>
+                                        <span class="tag">Git</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Recent Activity</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="post">
+                                        <div class="post-content">
+                                            <h3 class="post-title"><a href="#">Commented on "React Performance Optimization"</a></h3>
+                                            <p class="post-excerpt">Great article! I've found that using React.memo with custom comparison functions can significantly reduce unnecessary re-renders.</p>
+                                            <div class="post-meta">
+                                                <span>2 hours ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="post">
+                                        <div class="post-content">
+                                            <h3 class="post-title"><a href="#">Posted "State Management in Vue"</a></h3>
+                                            <p class="post-excerpt">A comprehensive comparison of state management solutions in Vue.js applications.</p>
+                                            <div class="post-meta">
+                                                <span>1 day ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="post">
+                                        <div class="post-content">
+                                            <h3 class="post-title"><a href="#">Joined "Web Performance Workshop"</a></h3>
+                                            <p class="post-excerpt">Registered for the upcoming online workshop on advanced web performance techniques.</p>
+                                            <div class="post-meta">
+                                                <span>3 days ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Messages Page -->
+                    <section id="messages" class="page">
+                        <div class="page-header">
+                            <h2 class="page-title">Messages</h2>
+                        </div>
+                        
+                        <div class="messages-container">
+                            <div class="conversations">
+                                <div class="conversations-header">Conversations</div>
+                                <div class="conversations-list" id="conversationsList">
+                                    <!-- Conversations will be loaded here from database -->
+                                </div>
+                            </div>
+                            
+                            <div class="chat">
+                                <div class="chat-header">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" alt="User" class="chat-avatar">
+                                    <div>
+                                        <div class="chat-user" id="chatUserName">John Developer</div>
+                                        <div class="chat-status">Online</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="chat-messages" id="chatMessages">
+                                    <!-- Messages will be loaded here from database -->
+                                </div>
+                                
+                                <div class="chat-input">
+                                    <input type="text" id="messageInput" placeholder="Type a message...">
+                                    <button class="btn btn-primary" id="sendMessageBtn">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
         </div>
-    </footer>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <a href="#" class="footer-logo">
+                            <i class="fas fa-code"></i>
+                            <span>DevHub</span>
+                        </a>
+                        <p class="footer-description">A community of developers helping each other to learn, grow, and solve coding challenges.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3>Products</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Teams</a></li>
+                            <li><a href="#">Advertising</a></li>
+                            <li><a href="#">Collectives</a></li>
+                            <li><a href="#">Talent</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3>Company</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Work Here</a></li>
+                            <li><a href="#">Legal</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3>Community</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Discussions</a></li>
+                            <li><a href="#">Articles</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    &copy; 2023 DevHub. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
         // Enhanced Database simulation using localStorage
@@ -2473,6 +2863,49 @@
                         }
                     ];
                     localStorage.setItem('devhub_questions', JSON.stringify(sampleQuestions));
+                }
+                
+                if (!localStorage.getItem('devhub_answers')) {
+                    // Initialize with sample answers
+                    const sampleAnswers = [
+                        {
+                            id: 1,
+                            questionId: 1,
+                            body: "One of the best practices for React performance optimization is to use React.memo for functional components to prevent unnecessary re-renders. Also, consider using the useMemo and useCallback hooks to memoize expensive calculations and functions.",
+                            author: "ReactExpert",
+                            votes: 8,
+                            accepted: false,
+                            timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 2,
+                            questionId: 1,
+                            body: "Don't forget about code splitting with React.lazy and Suspense. This can significantly reduce your initial bundle size and improve load times.",
+                            author: "PerformanceGuru",
+                            votes: 5,
+                            accepted: false,
+                            timestamp: new Date(Date.now() - 45 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 3,
+                            questionId: 1,
+                            body: "I've found that using the React DevTools Profiler is essential for identifying performance bottlenecks in your application. It helps you visualize which components are re-rendering and why.",
+                            author: "DevToolsFan",
+                            votes: 12,
+                            accepted: true,
+                            timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString()
+                        },
+                        {
+                            id: 4,
+                            questionId: 2,
+                            body: "The biggest benefit we experienced was reduced over-fetching of data. With GraphQL, the client can request exactly what it needs, which improved our app's performance significantly.",
+                            author: "GraphQLAdvocate",
+                            votes: 6,
+                            accepted: true,
+                            timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_answers', JSON.stringify(sampleAnswers));
                 }
                 
                 if (!localStorage.getItem('devhub_articles')) {
@@ -2802,6 +3235,28 @@ tsc</code></pre>
                     };
                     localStorage.setItem('devhub_settings', JSON.stringify(settings));
                 }
+
+                if (!localStorage.getItem('devhub_users')) {
+                    // Initialize with sample users
+                    const sampleUsers = [
+                        {
+                            id: 1,
+                            name: "Admin Developer",
+                            email: "admin@devhub.com",
+                            password: "password123",
+                            title: "Full-stack Developer & Community Admin",
+                            bio: "Full-stack developer who loves learning new technologies. Specialized in React, Node.js, TypeScript, and Python. Passionate about open source and developer communities.",
+                            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face",
+                            joinDate: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem('devhub_users', JSON.stringify(sampleUsers));
+                }
+
+                if (!localStorage.getItem('devhub_current_user')) {
+                    // Initialize with no current user
+                    localStorage.setItem('devhub_current_user', JSON.stringify(null));
+                }
             },
             
             // Get all questions
@@ -2819,6 +3274,15 @@ tsc</code></pre>
                 question.timestamp = new Date().toISOString();
                 questions.push(question);
                 localStorage.setItem('devhub_questions', JSON.stringify(questions));
+                
+                // Add notification for new question
+                this.addNotification({
+                    title: "Question posted",
+                    message: `Your question "${question.title}" has been posted`,
+                    type: "question",
+                    read: false
+                });
+                
                 return question;
             },
 
@@ -2842,6 +3306,12 @@ tsc</code></pre>
                 return true;
             },
             
+            // Get question by ID
+            getQuestion: function(id) {
+                const questions = this.getQuestions();
+                return questions.find(q => q.id === id);
+            },
+            
             // Update question vote
             updateQuestionVote: function(questionId, change) {
                 const questions = this.getQuestions();
@@ -2850,6 +3320,78 @@ tsc</code></pre>
                     question.votes += change;
                     localStorage.setItem('devhub_questions', JSON.stringify(questions));
                 }
+            },
+            
+            // Get all answers
+            getAnswers: function() {
+                return JSON.parse(localStorage.getItem('devhub_answers') || '[]');
+            },
+            
+            // Get answers for a question
+            getAnswersForQuestion: function(questionId) {
+                const answers = this.getAnswers();
+                return answers.filter(a => a.questionId === questionId);
+            },
+            
+            // Add a new answer
+            addAnswer: function(answer) {
+                const answers = this.getAnswers();
+                answer.id = answers.length > 0 ? Math.max(...answers.map(a => a.id)) + 1 : 1;
+                answer.votes = 0;
+                answer.accepted = false;
+                answer.timestamp = new Date().toISOString();
+                answers.push(answer);
+                localStorage.setItem('devhub_answers', JSON.stringify(answers));
+                
+                // Update question answer count
+                const questions = this.getQuestions();
+                const question = questions.find(q => q.id === answer.questionId);
+                if (question) {
+                    question.answers += 1;
+                    localStorage.setItem('devhub_questions', JSON.stringify(questions));
+                }
+                
+                // Add notification for new answer
+                const questionTitle = question ? question.title : "your question";
+                this.addNotification({
+                    title: "New answer received",
+                    message: `Someone answered your question "${questionTitle}"`,
+                    type: "answer",
+                    read: false
+                });
+                
+                return answer;
+            },
+            
+            // Update answer vote
+            updateAnswerVote: function(answerId, change) {
+                const answers = this.getAnswers();
+                const answer = answers.find(a => a.id === answerId);
+                if (answer) {
+                    answer.votes += change;
+                    localStorage.setItem('devhub_answers', JSON.stringify(answers));
+                }
+            },
+            
+            // Mark answer as accepted
+            acceptAnswer: function(answerId) {
+                const answers = this.getAnswers();
+                const answer = answers.find(a => a.id === answerId);
+                if (answer) {
+                    // Unaccept any previously accepted answer for this question
+                    answers.forEach(a => {
+                        if (a.questionId === answer.questionId && a.accepted) {
+                            a.accepted = false;
+                        }
+                    });
+                    
+                    // Accept this answer
+                    answer.accepted = true;
+                    localStorage.setItem('devhub_answers', JSON.stringify(answers));
+                    
+                    return true;
+                }
+                return false;
             },
             
             // Get all articles
@@ -2864,6 +3406,15 @@ tsc</code></pre>
                 article.timestamp = new Date().toISOString();
                 articles.push(article);
                 localStorage.setItem('devhub_articles', JSON.stringify(articles));
+                
+                // Add notification for new article
+                this.addNotification({
+                    title: "Article published",
+                    message: `Your article "${article.title}" has been published`,
+                    type: "article",
+                    read: false
+                });
+                
                 return article;
             },
 
@@ -2905,6 +3456,15 @@ tsc</code></pre>
                 project.timestamp = new Date().toISOString();
                 projects.push(project);
                 localStorage.setItem('devhub_projects', JSON.stringify(projects));
+                
+                // Add notification for new project
+                this.addNotification({
+                    title: "Project added",
+                    message: `Your project "${project.title}" has been added to the showcase`,
+                    type: "project",
+                    read: false
+                });
+                
                 return project;
             },
 
@@ -2940,6 +3500,15 @@ tsc</code></pre>
                 event.timestamp = new Date().toISOString();
                 events.push(event);
                 localStorage.setItem('devhub_events', JSON.stringify(events));
+                
+                // Add notification for new event
+                this.addNotification({
+                    title: "Event created",
+                    message: `Your event "${event.title}" has been created`,
+                    type: "event",
+                    read: false
+                });
+                
                 return event;
             },
 
@@ -3010,6 +3579,14 @@ tsc</code></pre>
                         community.members += 1;
                         community.joined = true;
                         localStorage.setItem('devhub_communities', JSON.stringify(communities));
+                        
+                        // Add notification for joining community
+                        this.addNotification({
+                            title: "Community joined",
+                            message: `You joined the ${community.name} community`,
+                            type: "community",
+                            read: false
+                        });
                     }
                 }
             },
@@ -3033,6 +3610,16 @@ tsc</code></pre>
             // Get all notifications
             getNotifications: function() {
                 return JSON.parse(localStorage.getItem('devhub_notifications') || '[]');
+            },
+
+            // Add a notification
+            addNotification: function(notification) {
+                const notifications = this.getNotifications();
+                notification.id = notifications.length > 0 ? Math.max(...notifications.map(n => n.id)) + 1 : 1;
+                notification.timestamp = new Date().toISOString();
+                notifications.unshift(notification); // Add to beginning of array
+                localStorage.setItem('devhub_notifications', JSON.stringify(notifications));
+                return notification;
             },
 
             // Mark notification as read
@@ -3071,6 +3658,36 @@ tsc</code></pre>
                 const updatedSettings = { ...currentSettings, ...newSettings };
                 localStorage.setItem('devhub_settings', JSON.stringify(updatedSettings));
                 return updatedSettings;
+            },
+
+            // Get all users
+            getUsers: function() {
+                return JSON.parse(localStorage.getItem('devhub_users') || '[]');
+            },
+
+            // Add a new user
+            addUser: function(user) {
+                const users = this.getUsers();
+                user.id = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+                user.joinDate = new Date().toISOString();
+                users.push(user);
+                localStorage.setItem('devhub_users', JSON.stringify(users));
+                return user;
+            },
+
+            // Get current user
+            getCurrentUser: function() {
+                return JSON.parse(localStorage.getItem('devhub_current_user') || null);
+            },
+
+            // Set current user
+            setCurrentUser: function(user) {
+                localStorage.setItem('devhub_current_user', JSON.stringify(user));
+            },
+
+            // Logout current user
+            logout: function() {
+                localStorage.setItem('devhub_current_user', JSON.stringify(null));
             },
 
             // Search across all content
@@ -3140,6 +3757,7 @@ tsc</code></pre>
             searchQuery: '',
             activeTags: [],
             communitySearchQuery: '',
+            currentQuestionId: null,
 
             // Initialize the UI
             init: function() {
@@ -3151,6 +3769,9 @@ tsc</code></pre>
                 
                 // Set up event listeners
                 this.setupEventListeners();
+                
+                // Check if user is logged in
+                this.checkAuthStatus();
                 
                 // Load initial data
                 this.loadQuestions();
@@ -3166,6 +3787,46 @@ tsc</code></pre>
                 
                 // Update notification badges
                 this.updateNotificationBadges();
+                
+                // Update navigation counts
+                this.updateNavigationCounts();
+            },
+
+            // Check authentication status
+            checkAuthStatus: function() {
+                const currentUser = Database.getCurrentUser();
+                if (currentUser) {
+                    this.showMainApp(currentUser);
+                } else {
+                    this.showLandingPage();
+                }
+            },
+
+            // Show landing page
+            showLandingPage: function() {
+                document.getElementById('landing').style.display = 'block';
+                document.getElementById('mainApp').style.display = 'none';
+            },
+
+            // Show main app
+            showMainApp: function(user) {
+                document.getElementById('landing').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                
+                this.showLoggedInState(user);
+                
+                // Show home page by default
+                this.showPage('home');
+            },
+
+            // Show logged in state
+            showLoggedInState: function(user) {
+                document.getElementById('userDisplayName').textContent = user.name;
+                
+                // Update profile page
+                document.getElementById('profileUserName').textContent = user.name;
+                document.getElementById('profileUserTitle').textContent = user.title;
+                document.getElementById('profileUserBio').textContent = user.bio;
             },
 
             // Load settings
@@ -3188,16 +3849,42 @@ tsc</code></pre>
                     itemsPerPage: this.itemsPerPage
                 });
             },
+
+            // Update navigation counts
+            updateNavigationCounts: function() {
+                const questions = Database.getQuestions();
+                const articles = Database.getArticles();
+                const projects = Database.getProjects();
+                const events = Database.getEvents();
+                const jobs = Database.getJobs();
+                
+                document.getElementById('forumCount').textContent = questions.length;
+                document.getElementById('articlesCount').textContent = articles.length;
+                document.getElementById('projectsCount').textContent = projects.length;
+                document.getElementById('eventsCount').textContent = events.length;
+                document.getElementById('jobsCount').textContent = jobs.length;
+            },
             
             // Set up all event listeners
             setupEventListeners: function() {
+                // Landing page buttons
+                document.getElementById('landingLoginBtn').addEventListener('click', () => {
+                    this.showAuthModal('login');
+                });
+
+                document.getElementById('landingRegisterBtn').addEventListener('click', () => {
+                    this.showAuthModal('register');
+                });
+
                 // Navigation
                 const navLinks = document.querySelectorAll('.nav-link, .sidebar-list a, .mobile-nav a');
                 navLinks.forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         const targetPage = e.target.getAttribute('data-page');
-                        this.showPage(targetPage);
+                        if (targetPage) {
+                            this.showPage(targetPage);
+                        }
                         
                         // Close mobile menu if open
                         document.querySelector('.mobile-nav').classList.remove('active');
@@ -3212,6 +3899,28 @@ tsc</code></pre>
                 // Theme toggle
                 document.getElementById('themeToggle').addEventListener('click', () => {
                     this.toggleTheme();
+                });
+
+                // User dropdown
+                document.getElementById('userInfo').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.getElementById('userDropdown').classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', () => {
+                    document.getElementById('userDropdown').classList.remove('active');
+                });
+
+                // Logout buttons
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.logout();
+                });
+
+                document.getElementById('mobileLogoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.logout();
                 });
 
                 // Global search
@@ -3242,6 +3951,36 @@ tsc</code></pre>
                 document.addEventListener('click', (e) => {
                     if (!e.target.closest('#notificationsBtn') && !e.target.closest('#notificationPanel')) {
                         document.getElementById('notificationPanel').classList.remove('active');
+                    }
+                });
+
+                // Auth modal
+                document.getElementById('closeAuthModal').addEventListener('click', () => {
+                    this.hideAuthModal();
+                });
+
+                document.getElementById('loginTab').addEventListener('click', () => {
+                    this.switchAuthTab('login');
+                });
+
+                document.getElementById('registerTab').addEventListener('click', () => {
+                    this.switchAuthTab('register');
+                });
+
+                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.login();
+                });
+
+                document.getElementById('registerForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.register();
+                });
+
+                // Close modal when clicking outside
+                document.getElementById('authModal').addEventListener('click', (e) => {
+                    if (e.target.id === 'authModal') {
+                        this.hideAuthModal();
                     }
                 });
 
@@ -3421,6 +4160,103 @@ tsc</code></pre>
                     this.currentSort = 'unanswered';
                     this.loadQuestions();
                 });
+
+                // Answer form submission
+                document.addEventListener('submit', (e) => {
+                    if (e.target.id === 'answerForm') {
+                        e.preventDefault();
+                        this.submitAnswer();
+                    }
+                });
+
+                // Accept answer buttons
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('accept-answer-btn') || e.target.closest('.accept-answer-btn')) {
+                        const btn = e.target.classList.contains('accept-answer-btn') ? e.target : e.target.closest('.accept-answer-btn');
+                        this.acceptAnswer(btn);
+                    }
+                });
+            },
+
+            // Show auth modal
+            showAuthModal: function(tab) {
+                document.getElementById('authModal').classList.add('active');
+                this.switchAuthTab(tab);
+            },
+
+            // Hide auth modal
+            hideAuthModal: function() {
+                document.getElementById('authModal').classList.remove('active');
+            },
+
+            // Switch auth tab
+            switchAuthTab: function(tab) {
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                
+                document.getElementById(tab + 'Tab').classList.add('active');
+                document.getElementById(tab + 'Form').classList.add('active');
+            },
+
+            // Login
+            login: function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                const users = Database.getUsers();
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    Database.setCurrentUser(user);
+                    this.checkAuthStatus();
+                    this.hideAuthModal();
+                    alert('Login successful!');
+                } else {
+                    alert('Invalid email or password');
+                }
+            },
+
+            // Register
+            register: function() {
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+                
+                const users = Database.getUsers();
+                const existingUser = users.find(u => u.email === email);
+                
+                if (existingUser) {
+                    alert('Email already registered');
+                    return;
+                }
+                
+                const user = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    title: "Developer",
+                    bio: "New member of DevHub community",
+                    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face"
+                };
+                
+                Database.addUser(user);
+                Database.setCurrentUser(user);
+                this.checkAuthStatus();
+                this.hideAuthModal();
+                alert('Registration successful!');
+            },
+
+            // Logout
+            logout: function() {
+                Database.logout();
+                this.checkAuthStatus();
+                alert('You have been logged out');
             },
 
             // Toggle theme
@@ -3542,7 +4378,7 @@ tsc</code></pre>
                                 </div>
                             </div>
                             <div class="post-content">
-                                <h3 class="post-title"><a href="#">${question.title}</a></h3>
+                                <h3 class="post-title"><a href="#" class="view-question-btn" data-id="${question.id}">${question.title}</a></h3>
                                 <p class="post-excerpt">${question.body}</p>
                                 <div class="post-meta">
                                     <div class="post-tags">
@@ -3560,6 +4396,15 @@ tsc</code></pre>
                     questionsList.innerHTML = questionsHTML;
                     questionsListForum.innerHTML = questionsHTML;
                     
+                    // Add event listeners to view question buttons
+                    document.querySelectorAll('.view-question-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const questionId = parseInt(btn.getAttribute('data-id'));
+                            this.showQuestionDetail(questionId);
+                        });
+                    });
+                    
                     // Add event listeners to tags
                     this.attachTagListeners();
                 }
@@ -3569,13 +4414,184 @@ tsc</code></pre>
                 this.updatePagination('forumPagination', totalPages);
             },
 
+            // Show question detail with answers
+            showQuestionDetail: function(questionId) {
+                const question = Database.getQuestion(questionId);
+                if (!question) return;
+                
+                const answers = Database.getAnswersForQuestion(questionId);
+                const questionDetail = document.getElementById('questionDetailContent');
+                
+                questionDetail.innerHTML = `
+                    <div class="card-header">
+                        <h2 class="card-title">${question.title}</h2>
+                        <div class="post-actions">
+                            <button class="action-btn edit edit-btn" data-type="question" data-id="${question.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete delete-btn" data-type="question" data-id="${question.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="post">
+                            <div class="post-stats">
+                                <div class="post-votes">
+                                    <button class="vote-btn" data-id="${question.id}" data-direction="up"><i class="fas fa-caret-up"></i></button>
+                                    <div class="vote-count">${question.votes}</div>
+                                    <button class="vote-btn" data-id="${question.id}" data-direction="down"><i class="fas fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-excerpt">${question.body}</div>
+                                <div class="post-meta">
+                                    <div class="post-tags">
+                                        ${question.tags.map(tag => `<a href="#" class="tag" data-tag="${tag}">${tag}</a>`).join('')}
+                                    </div>
+                                    <div class="post-author">
+                                        <span>${question.author}</span>
+                                        <span>${this.formatTime(question.timestamp)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="answer-section">
+                            <h3>${answers.length} Answer${answers.length !== 1 ? 's' : ''}</h3>
+                            
+                            <div class="answer-list">
+                                ${answers.map(answer => `
+                                    <div class="answer-item">
+                                        <div class="answer-header">
+                                            <div class="answer-author">${answer.author}</div>
+                                            <div class="answer-date">${this.formatTime(answer.timestamp)}</div>
+                                        </div>
+                                        <div class="answer-content">${answer.body}</div>
+                                        <div class="answer-actions">
+                                            <div class="answer-votes">
+                                                <button class="vote-btn answer-vote-btn" data-id="${answer.id}" data-direction="up"><i class="fas fa-caret-up"></i></button>
+                                                <div class="vote-count">${answer.votes}</div>
+                                                <button class="vote-btn answer-vote-btn" data-id="${answer.id}" data-direction="down"><i class="fas fa-caret-down"></i></button>
+                                            </div>
+                                            ${answer.accepted ? '<span class="answer-accepted">Accepted</span>' : 
+                                            '<button class="btn btn-outline accept-answer-btn" data-id="' + answer.id + '">Accept Answer</button>'}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="answer-form">
+                                <h4>Your Answer</h4>
+                                <form id="answerForm">
+                                    <input type="hidden" id="answerQuestionId" value="${question.id}">
+                                    <div class="form-group">
+                                        <textarea id="answerBody" class="form-control" placeholder="Write your answer here..." required></textarea>
+                                    </div>
+                                    <div class="page-actions">
+                                        <button type="submit" class="btn btn-primary">Post Your Answer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" id="backToForumBtn">Back to Forum</button>
+                    </div>
+                `;
+                
+                // Add event listener to back button
+                document.getElementById('backToForumBtn').addEventListener('click', () => {
+                    this.showPage('forum');
+                });
+
+                // Add event listeners to edit/delete buttons
+                this.attachEditDeleteListeners();
+                
+                // Add event listeners to answer vote buttons
+                document.querySelectorAll('.answer-vote-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.handleAnswerVote(btn);
+                    });
+                });
+                
+                this.showPage('questionDetail');
+            },
+
+            // Submit an answer
+            submitAnswer: function() {
+                const questionId = parseInt(document.getElementById('answerQuestionId').value);
+                const body = document.getElementById('answerBody').value;
+                
+                if (!body) {
+                    alert('Please write an answer');
+                    return;
+                }
+                
+                const currentUser = Database.getCurrentUser();
+                const answer = {
+                    questionId: questionId,
+                    body: body,
+                    author: currentUser.name
+                };
+                
+                Database.addAnswer(answer);
+                
+                // Reset form
+                document.getElementById('answerBody').value = '';
+                
+                // Reload question detail
+                this.showQuestionDetail(questionId);
+                
+                // Update notification badges
+                this.updateNotificationBadges();
+                
+                alert('Answer posted successfully!');
+            },
+
+            // Handle answer voting
+            handleAnswerVote: function(voteBtn) {
+                const answerId = parseInt(voteBtn.getAttribute('data-id'));
+                const direction = voteBtn.getAttribute('data-direction');
+                const change = direction === 'up' ? 1 : -1;
+                
+                Database.updateAnswerVote(answerId, change);
+                
+                // Update UI
+                const voteCount = voteBtn.parentElement.querySelector('.vote-count');
+                let count = parseInt(voteCount.textContent);
+                count += change;
+                voteCount.textContent = count;
+                
+                // Visual feedback
+                voteBtn.style.color = 'var(--primary)';
+                setTimeout(() => {
+                    voteBtn.style.color = '';
+                }, 300);
+            },
+
+            // Accept an answer
+            acceptAnswer: function(btn) {
+                const answerId = parseInt(btn.getAttribute('data-id'));
+                
+                if (Database.acceptAnswer(answerId)) {
+                    // Reload question detail to show updated accepted status
+                    const questionId = this.currentQuestionId || Database.getAnswers().find(a => a.id === answerId).questionId;
+                    this.showQuestionDetail(questionId);
+                    
+                    alert('Answer accepted!');
+                }
+            },
+
             // Sort questions
             sortQuestions: function(questions, sortBy) {
                 switch (sortBy) {
                     case 'newest':
                         return questions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     case 'active':
-                        return questions.sort((a, b) => b.answers - a.answers || new Date(b.timestamp) - new Date(a.timestamp));
+                        // Sort by number of answers (descending)
+                        return questions.sort((a, b) => b.answers - a.answers);
                     case 'unanswered':
                         return questions.filter(q => q.answers === 0).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     default:
@@ -4004,6 +5020,9 @@ tsc</code></pre>
                 
                 // Reload communities to update member counts
                 this.loadCommunities();
+                
+                // Update notification badges
+                this.updateNotificationBadges();
             },
 
             // Load popular tags
@@ -4275,11 +5294,12 @@ tsc</code></pre>
                     return;
                 }
                 
+                const currentUser = Database.getCurrentUser();
                 const question = {
                     title,
                     body,
                     tags,
-                    author: 'Admin'
+                    author: currentUser.name
                 };
                 
                 Database.addQuestion(question);
@@ -4292,6 +5312,12 @@ tsc</code></pre>
                 
                 // Reload questions
                 this.loadQuestions();
+                
+                // Update notification badges
+                this.updateNotificationBadges();
+                
+                // Update navigation counts
+                this.updateNavigationCounts();
                 
                 alert('Question posted successfully!');
             },
@@ -4364,24 +5390,28 @@ tsc</code></pre>
                         case 'question':
                             if (Database.deleteQuestion(id)) {
                                 this.loadQuestions();
+                                this.updateNavigationCounts();
                                 alert('Question deleted successfully!');
                             }
                             break;
                         case 'article':
                             if (Database.deleteArticle(id)) {
                                 this.loadArticles();
+                                this.updateNavigationCounts();
                                 alert('Article deleted successfully!');
                             }
                             break;
                         case 'project':
                             if (Database.deleteProject(id)) {
                                 this.loadProjects();
+                                this.updateNavigationCounts();
                                 alert('Project deleted successfully!');
                             }
                             break;
                         case 'event':
                             if (Database.deleteEvent(id)) {
                                 this.loadEvents();
+                                this.updateNavigationCounts();
                                 alert('Event deleted successfully!');
                             }
                             break;
@@ -4576,12 +5606,13 @@ tsc</code></pre>
                     return;
                 }
                 
+                const currentUser = Database.getCurrentUser();
                 const article = {
                     title,
                     summary,
                     content,
                     tags,
-                    author: 'Admin'
+                    author: currentUser.name
                 };
                 
                 Database.addArticle(article);
@@ -4594,6 +5625,12 @@ tsc</code></pre>
                 
                 // Reload articles
                 this.loadArticles();
+                
+                // Update notification badges
+                this.updateNotificationBadges();
+                
+                // Update navigation counts
+                this.updateNavigationCounts();
                 
                 alert('Article published successfully!');
             },
@@ -4611,13 +5648,14 @@ tsc</code></pre>
                     return;
                 }
                 
+                const currentUser = Database.getCurrentUser();
                 const project = {
                     title,
                     description,
                     tools,
                     website,
                     demo,
-                    author: 'Admin'
+                    author: currentUser.name
                 };
                 
                 Database.addProject(project);
@@ -4630,6 +5668,12 @@ tsc</code></pre>
                 
                 // Reload projects
                 this.loadProjects();
+                
+                // Update notification badges
+                this.updateNotificationBadges();
+                
+                // Update navigation counts
+                this.updateNavigationCounts();
                 
                 alert('Project added successfully!');
             },
@@ -4663,6 +5707,12 @@ tsc</code></pre>
                 
                 // Reload events
                 this.loadEvents();
+                
+                // Update notification badges
+                this.updateNotificationBadges();
+                
+                // Update navigation counts
+                this.updateNavigationCounts();
                 
                 alert('Event added successfully!');
             },
